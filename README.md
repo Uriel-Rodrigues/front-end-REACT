@@ -4,6 +4,19 @@
 
 ## como rodar o projeto baixado
 
+instalar todas as dependencias indicadas pelo package.json.
+```
+npm install
+```
+
+rodar o projeto React.
+```
+npm run dev
+```
+acessar no navegador a URL
+```
+
+```
 ## sequencia para criar o projeto 
 Criar o projeto com React e Next.js O ponto "." indica que deve ser criado no próprio diretorio
 ```
@@ -47,3 +60,8 @@ O comando -m permite que insira a mensagem de commit diretamente na linha de com
 git commit -m "base projeto"
 ```
 
+enviar os commits locais, para um repositorio remoto.
+```
+git push <remote> <branch>
+git push origin develop
+```
