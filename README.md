@@ -4,6 +4,8 @@
 
 ## como rodar o projeto baixado
 
+Alterar o endereço do API no arquivo src/sevices/api.tsx
+
 instalar todas as dependencias indicadas pelo package.json.
 ```
 npm install
@@ -32,6 +34,16 @@ Acessar no navegador a URL
 ```
 http://localhost:3000
 ``` 
+
+PACOTE PARA CONECTAR A APLICAÇÃO À API
+```
+npm i axios
+```
+instalar a dependenia yup para validar o fomulario. o react-hook-form para gerenciar o formulario. o resolvers para conectar react-hook-form com yup
+```
+npm install @hookform/resolvers yup react-hook-form
+```
+
 ## como enviar e baixar os arquivos do git rub
 
 Baixar os arquivos do git
