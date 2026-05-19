@@ -1,11 +1,12 @@
 //importa o componente menu 
-import Menu from "./components/Menu"
+import Link from "next/link"
 
 export default function Home() {
   return (
     <div>
-      <Menu />
       <h1>bem vindo URIEL</h1>
+      <br/>
+      <Link href="/login" className="border">Login</Link>
     </div>
   )
 }

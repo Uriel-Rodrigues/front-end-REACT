@@ -5,8 +5,6 @@ import {useEffect ,useState } from "react";
 import { useSearchParams } from "next/navigation";
 import * as yup from "yup"
 import Link from "next/link";
-import { RESPONSE_LIMIT_DEFAULT } from "next/dist/server/api-utils";
-import { allowedNodeEnvironmentFlags, eventNames } from "process";
 
 //cria esquema de validação com yup
 const schema = yup.object().shape({
