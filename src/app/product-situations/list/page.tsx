@@ -10,6 +10,7 @@ import Pagination from "@/app/components/Pagination"
 import Menu from "@/app/components/Menu"
 //importar componente para deletar
 import DeleteButton from "@/app/components/DeleteButton"
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 //definir INTERFACE para resposta da API
 interface Situation {
@@ -75,7 +76,7 @@ export default function SituationList (){
     },[currentPage]) //recarreca os dados sempre que a pagina muda 
 
     return (
-        <div>
+        <ProtectedRoute>
             <Menu/>
             <br/>
             <Link href={`/product-situations/create`}>Cadastrar</Link>
@@ -124,6 +125,6 @@ export default function SituationList (){
                 lastPage={ lastPage}
                 onPageChange={setCurrentPage}
             />
-        </div>
+        </ProtectedRoute>
     )
 }

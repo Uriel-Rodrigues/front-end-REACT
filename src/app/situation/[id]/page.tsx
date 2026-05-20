@@ -9,6 +9,8 @@ import { useParams } from "next/navigation"
 import DeleteButton from "@/app/components/DeleteButton"
 //hook para manipular a navegação do usuario 
 import { useRouter } from "next/navigation"
+//importar componente para tornar rota protegida (precisa estar logado)
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 interface Situation {
     id: number
@@ -83,7 +85,7 @@ const situationDetails = () => {
 
     }, [id]); //reccarregar os daos quando o id mudar
     return (
-        <div>
+        <ProtectedRoute>
             <Menu/><br />
             <Link href={`/situation/list`}>Listar</Link>
             {situation && !loading && !error &&(
@@ -113,7 +115,7 @@ const situationDetails = () => {
                     <p>Editado em :{new Date(situation.updatedAt).toLocaleString()}</p>
                 </div>
             )}
-        </div>
+        </ProtectedRoute>
     )
 };
 export default situationDetails;

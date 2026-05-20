@@ -4,6 +4,7 @@ import instance from "@/services/api"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 
 export default function Categories () {
@@ -103,7 +104,7 @@ export default function Categories () {
     
     //parte visual da aplicação
     return (
-        <div>
+        <ProtectedRoute>
             <Menu /><br />
             <Link href={`/product-categories/list`}> List</Link>
     
@@ -132,7 +133,7 @@ export default function Categories () {
                 </button>
             </form>
             
-        </div>
+        </ProtectedRoute>
 
     )
 }

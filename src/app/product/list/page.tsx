@@ -6,6 +6,7 @@ import instance from "@/services/api";
 import { useEffect, useState } from "react";
 import DeleteButton from "@/app/components/DeleteButton";
 import Link from "next/link";
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 //interface com os tipos de resposta da api
 interface Product {
@@ -69,7 +70,7 @@ export default function productList(){
     },[currentPage])// atualiza os dados quando a pagina mudar 
     
     return(
-        <div>
+        <ProtectedRoute>
             <Menu></Menu> <br />
             <Link href = {"/product/create"}>Cadastrar</Link> <br />
 
@@ -120,6 +121,6 @@ export default function productList(){
                 onPageChange={setCurrentPage}
             />
 
-        </div>
+        </ProtectedRoute>
     )
 }

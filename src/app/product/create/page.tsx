@@ -7,6 +7,7 @@ import * as yup from "yup"
 import { yupResolver} from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { UseForm } from "react-hook-form";
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 //schema de alidação com yup
 const schema = yup.object().shape({
@@ -84,7 +85,7 @@ export default function Product () {
     }
     
     return(
-        <div>
+        <ProtectedRoute>
             < Menu /> <br />
 
             <Link href={`/product/list`}>Listar</Link> <br /> 
@@ -148,6 +149,6 @@ export default function Product () {
             </form>
            
 
-        </div>
+        </ProtectedRoute>
     )
 } 

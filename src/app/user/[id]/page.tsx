@@ -5,10 +5,9 @@ import Link from "next/link";
 import DeleteButton from "@/app/components/DeleteButton";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { set } from "react-hook-form";
-import { string } from "yup";
 import { useRouter } from "next/navigation";
-import { markCurrentScopeAsDynamic } from "next/dist/server/app-render/dynamic-rendering";
+//importar componente para tornar rota protegida (precisa estar logado)
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 interface User {
     id: number
@@ -77,7 +76,7 @@ export default function UserDetails () {
     }, [id])// recarregar quando o id mudar
 
     return(
-        <div>
+        <ProtectedRoute>
             <Menu /> <br />
 
             <Link href={`/user/list`}> Listar</Link> <br />
@@ -106,7 +105,7 @@ export default function UserDetails () {
                     <p>Email: {user?.email}</p>
                 </div>
             )}
-        </div>
+        </ProtectedRoute>
     )
 
 }

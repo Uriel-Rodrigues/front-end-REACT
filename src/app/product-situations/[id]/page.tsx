@@ -13,6 +13,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 //hook pra manipular navegação com usuario 
 import { useRouter } from "next/navigation"
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 interface situation {
     id: number,
@@ -80,7 +81,7 @@ const situationDetails = ()=> {
     }, [id]) //recarrega sempre que situação mudar
 
     return (
-        <div>
+        <ProtectedRoute>
             <Menu /> <br />
 
             <Link href={`/product-situations/list`} >List</Link>
@@ -109,7 +110,7 @@ const situationDetails = ()=> {
                     <p>updatedAt:{new Date(situation.updatedAt).toLocaleString()}</p>
                 </div>
             )}
-        </div>
+        </ProtectedRoute>
     )
 }
 export default situationDetails

@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import * as yup from 'yup'
 import Link from "next/link";
 import { useState } from "react";
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 const schema = yup.object().shape({
     name: yup.string().required("o nome da categoria do produto é um campo obrigatorio")
@@ -81,7 +82,7 @@ export default function Categories() {
     } 
 
     return(
-        <div>
+        <ProtectedRoute>
             <Menu /> <br />
             <Link href={`/product-categories/list`}>List</Link>
 
@@ -111,6 +112,6 @@ export default function Categories() {
                     {loading ? "Enviando..." : "Cadastrar"}
                 </button>
             </form>
-        </div>
+        </ProtectedRoute>
     )
 };

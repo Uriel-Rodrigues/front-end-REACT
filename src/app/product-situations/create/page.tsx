@@ -11,6 +11,8 @@ import * as yup from 'yup'
 import instance from "@/services/api";
 import Link from "next/link";
 import {useState} from "react";
+import ProtectedRoute from "@/app/components/ProtectedRoute";
+
 const schema = yup.object().shape({
     name: yup.string().required("o nome da situação do produto é obrigatoria")
     .min(3, "o campo deve ter pelo menos 3 caracteres")
@@ -78,7 +80,7 @@ export default function Situation () {
     } 
 
     return(
-        <div>
+        <ProtectedRoute>
             <Menu /> <br />
             <Link href={`/product-situations/list`}>List</Link>
 
@@ -109,6 +111,6 @@ export default function Situation () {
 
             </form>
 
-        </div>
+        </ProtectedRoute>
     )
 }

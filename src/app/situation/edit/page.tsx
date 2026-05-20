@@ -6,6 +6,8 @@ import instance from "@/services/api"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
+//importar componente para tornar rota protegida (precisa estar logado)
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 export default function Situation() {
     //capturar parametro ID encaminhado na URL
@@ -105,7 +107,7 @@ export default function Situation() {
     },[id])//recarrega a pagina quando o id mudar 
 
     return(
-        <div>
+        <ProtectedRoute>
             <Menu /><br />
             <Link href = {`/situation/list`}>List</Link>
 
@@ -134,6 +136,6 @@ export default function Situation() {
                 </button>
             </form>
 
-        </div>
+        </ProtectedRoute>
     )
 }  

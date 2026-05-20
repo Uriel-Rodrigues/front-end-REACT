@@ -5,6 +5,8 @@ import instance from "@/services/api";
 import Link from "next/link";
 import * as yup from "yup"
 import { useState } from "react";
+//importar componente para tornar rota protegida (precisa estar logado)
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 //montar schema de validação com yup
 const schema = yup.object().shape({
@@ -75,7 +77,7 @@ export default function UserCreate () {
     } 
 
     return (
-        <div>
+        <ProtectedRoute>
             <Menu /> < br/>
 
             <Link href={`/user/list`}>Listar</Link> <br />
@@ -132,6 +134,6 @@ export default function UserCreate () {
                     </button>      
                 </form>
             )}
-        </div>
+        </ProtectedRoute>
     )
 }

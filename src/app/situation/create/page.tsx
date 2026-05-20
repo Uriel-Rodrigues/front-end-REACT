@@ -12,6 +12,8 @@ import * as yup from "yup"
 
 import Link from "next/link"
 import { useState } from "react"
+//importar componente para tornar rota protegida (precisa estar logado)
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 //esquema de validação com yup
 const schema = yup.object().shape({
@@ -81,7 +83,7 @@ export default function Situation () {
     } 
 
     return (
-        <div>
+        <ProtectedRoute>
             <Menu /><br />
             <Link href={`/situation/list`}> List</Link>
             <h1>Cadastrar Situação</h1>
@@ -110,6 +112,6 @@ export default function Situation () {
                     {loading ? "Enviado...":"Cadastrar"}
                 </button>
             </form>
-        </div>
+        </ProtectedRoute>
     )
 }

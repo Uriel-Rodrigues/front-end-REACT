@@ -4,6 +4,7 @@ import instance from "@/services/api";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 export default function situation(){
     //capturar o id encaminhado pela URL
@@ -103,7 +104,7 @@ export default function situation(){
     },[id])//recarrega a pagina quando o id mudar
 
     return (
-        <div>
+        <ProtectedRoute>
             <Menu /> <br />
             <Link href={`/product-situations/list`}>List</Link>
 
@@ -131,6 +132,6 @@ export default function situation(){
                 </button>
            </form>
 
-        </div>
+        </ProtectedRoute>
     )
 }

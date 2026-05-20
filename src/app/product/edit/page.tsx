@@ -4,6 +4,7 @@ import Menu from "@/app/components/Menu";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {useSearchParams } from "next/navigation"
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 export default function Product() {
     //capturar id pela url
@@ -114,7 +115,7 @@ export default function Product() {
     },[id]) //recarrega a pagina quando mudar o id
 
     return(
-        <div>
+        <ProtectedRoute>
             <Menu /><br />
             <Link href = {"/product/list"}>Listar</Link><br />
 
@@ -177,7 +178,7 @@ export default function Product() {
                     </button>
                 </form>
             )}
-        </div>
+        </ProtectedRoute>
     )
 
 }

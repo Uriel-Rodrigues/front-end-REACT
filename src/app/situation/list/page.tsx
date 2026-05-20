@@ -13,6 +13,8 @@ import instance from "@/services/api";
 import { useEffect, useState } from "react";
 //importa o componente de delete 
 import DeleteButton from "@/app/components/DeleteButton";
+//importar componente para tornar rota protegida (precisa estar logado)
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 //definir tipos para a resposta da API (interface)
 interface Situation {
@@ -76,7 +78,7 @@ export default function SituationList(){
     }, [currentPage])// recarregar os dados sempre que a pagina for alterada
 
     return(
-        <div>
+        <ProtectedRoute>
             <Menu /><br />
             <Link href={`/situation/create`}>Cadastrar</Link> <br />
         
@@ -126,6 +128,6 @@ export default function SituationList(){
                 lastPage={lastPage}
                 onPageChange={setCurrentPage}
             />
-        </div>
+        </ProtectedRoute>
     )
 }

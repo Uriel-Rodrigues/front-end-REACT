@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 interface Categories {
     id: number,
@@ -75,7 +76,7 @@ const categoriesDetails = ()=>{
     },[id])// recarrega a pagina sempre que o id mudar 
 
     return (
-        <div> 45 + 2 
+        <ProtectedRoute> 
             <Menu /> <br/>
 
             <Link href= {`/product-categories/list`}>List</Link>
@@ -104,7 +105,7 @@ const categoriesDetails = ()=>{
                     <p>updatedAt: {new Date(categories.updatedAt).toLocaleString()}</p>
                 </div>
             )}
-        </div>        
+        </ProtectedRoute>        
     )
 }
 export default categoriesDetails

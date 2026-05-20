@@ -8,6 +8,7 @@ import Pagination from "@/app/components/Pagination";
 //importa o componente menu
 import Menu from "@/app/components/Menu";
 import DeleteButton from "@/app/components/DeleteButton";
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 //definir tipos para a resposta da API
 interface Categories {
@@ -73,7 +74,7 @@ export default function ProductCategoriesList() {
     },[currentPage])//recarrega os dados sempre que a pagina muda
     
     return(
-        <div>
+        <ProtectedRoute>
             <Menu/>
             <br/>
             
@@ -123,7 +124,7 @@ export default function ProductCategoriesList() {
             />
 
             
-        </div>
+        </ProtectedRoute>
     )
 
 }

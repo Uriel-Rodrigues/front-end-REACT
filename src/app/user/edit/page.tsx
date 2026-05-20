@@ -5,6 +5,8 @@ import {useEffect ,useState } from "react";
 import { useSearchParams } from "next/navigation";
 import * as yup from "yup"
 import Link from "next/link";
+//importar componente para tornar rota protegida (precisa estar logado)
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 //cria esquema de validação com yup
 const schema = yup.object().shape({
@@ -110,7 +112,7 @@ export default function User () {
     }, [id]) //atualçizar quando o id mudar 
 
     return (
-        <div>
+        <ProtectedRoute>
             <Menu /><br />
             <Link href={`/user/list`}>Listar</Link>
 
@@ -157,6 +159,6 @@ export default function User () {
                     </form>
                 </div>
             )}
-        </div>
+        </ProtectedRoute>
     )
 }

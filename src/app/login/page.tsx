@@ -42,6 +42,10 @@ export default function Login (){
         try{
             //fazer requisição para api enviar dados os dados
             const response = await instance.post("/", data)
+            
+            // capturar o token e armazenar em sessionStorage
+            localStorage.setItem("token",response.data.user.token)
+
             //redirecionar o usuario para pagina principal 
             router.push("/deshboard")
         }

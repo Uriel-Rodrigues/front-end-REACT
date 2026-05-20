@@ -6,6 +6,8 @@ import Pagination from "@/app/components/Pagination";
 import DeleteButton from "@/app/components/DeleteButton";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+//importar componente para tornar rota protegida (precisa estar logado)
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 //interface para a entidade usur
 interface User {
@@ -74,7 +76,7 @@ export default function UserList () {
     },[currentPage])//stualiza sempre que mudar de pagina
 
     return (
-        <div>
+        <ProtectedRoute>
             <Menu /> <br />
 
             <Link href={`/user/create`}>Cadastrar</Link>< br/>
@@ -126,7 +128,7 @@ export default function UserList () {
                 lastPage={lastPage}
                 onPageChange={setCurrentPage}
             />
-        </div>
+        </ProtectedRoute>
 
     )
 }
