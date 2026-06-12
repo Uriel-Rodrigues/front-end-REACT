@@ -70,52 +70,74 @@ export default function Login (){
         }
     }
 
+    useEffect (() => {
+        const menssage = sessionStorage.getItem("successMenssage")
+        if(menssage) {
+            setSuccess(menssage)
+            sessionStorage.removeItem("successMenssage")
+        }
+    },[])
+
     return (
-        <div>
-            <h1>LOGIN DE USUARIO</h1>
-            <br />
-            {/* mostrar carregamento */}
-            {loading && <p>{loading}</p>}
-            {/* mostrar erro caso tenh */}
-            {error && <p style={{color:"#AB080B"}}>{error}</p>}
-            {/* mostrar mensagfem de sucesso caso tenha */}
-            {success && <p style={{color:"#3CB648"}}>{success}</p>}
-            {/* mostrar formulario caso não esteja carregando e não tenha erros */}
-            {!loading && !error && (
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div>
-                        <label htmlFor="email">*Email: </label>
-                        <input 
-                            id = "email"
-                            type="email" 
-                            placeholder= "Email de usuario"
-                            {...register('email')}
-                            className ="border"
-                            />
-                    </div>
-                    {/* exibir erros de validação de campo  */}
-                    {errors.email && <p style={{color:"#AB080B"}}>{errors.email.message}</p> }
-                    <br /> 
+        <div className="bg-login ">
+            <div className="card-login">
+                <div className="logo-wrapper-login">
+                    <a href="/">
+                    <img src="/image/curso_ia_unimontes-500x500.png" alt="logo" className="logo-login"/>
+                    </a>
+                </div>
 
-                    <div>
-                        <label htmlFor="password">*Senha: </label>
-                        <input
-                            id = "password"
-                            type="password"
-                            placeholder="Senha"
-                            {...register('password')}
-                            className ="border"
-                            />
-                    </div>
-                    {/* exibir erro de validação de campo */}
-                    {errors.password && <p style={{color:"#AB080B"}}>{errors.password.message}</p>}
+                <h1 className="title-login ">Área restrita</h1>
 
-                    <br />
-                    <button type="submit" disabled = {loading}>
-                        {loading ? "Acessando..." : "Entrar"}
-                    </button>
-                </form>
-            )}
+                {/* mostrar carregamento */}
+                {loading && <p>{loading}</p>}
+                {/* mostrar erro caso tenh */}
+                {error && <p className="alert-danger">{error}</p>}
+                {/* mostrar mensagfem de sucesso caso tenha */}
+                {success && <p className="alert-success">{success}</p>}
+                {/* mostrar formulario caso não esteja carregando e não tenha erros */}
+                {!loading && !error && (
+                    <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
+                        <div className="form-group-login">
+                            <label htmlFor="email" className="fotm-group-logi">*Email: </label>
+                            <input 
+                                id = "email"
+                                type="email" 
+                                placeholder= "Email de usuario"
+                                {...register('email')}
+                                className ="form-input-login"
+                            />
+                            {/* exibir erros de validação de campo  */}
+                            {errors.email && <p className="alert-danger">{errors.email.message}</p> }
+                        </div>
+
+                        <br /> 
+
+                        <div className="form-group-login">
+                            <label htmlFor="password" className="fotm-group-logi">*Senha: </label>
+                            <input
+                                id = "password"
+                                type="password"
+                                placeholder="Senha"
+                                {...register('password')}
+                                className ="form-input-login"
+                            />
+                            {/* exibir erro de validação de campo */}
+                            {errors.password && <p className="alert-danger">{errors.password.message}</p>}
+                        </div>
+
+
+                        <div className="btn-group-login">
+                            <Link href="/recover-password" className="link-login">Esqueceu a senha?</Link>
+                            <button type="submit" className="btn-primary-md" disabled = {loading}>{loading ? "Acessando..." : "Entrar"}
+                            </button>
+                        </div>
+                        <div className="mt-4 text-center">
+                            <Link href="/login/create" className="link-login">Criar nova conta !</Link>
+			            </div>
+                    </form>
+                )}
+            </div>
         </div>
     )
 }
