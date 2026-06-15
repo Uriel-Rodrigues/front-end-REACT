@@ -7,6 +7,7 @@ import * as yup from "yup"
 import { useState } from "react";
 //importar componente para tornar rota protegida (precisa estar logado)
 import ProtectedRoute from "@/app/components/ProtectedRoute";
+import { useRouter } from "next/navigation";
 
 //montar schema de validação com yup
 const schema = yup.object().shape({
@@ -18,7 +19,7 @@ const schema = yup.object().shape({
 //estados para controle e armazenamento de dados 
 export default function UserCreate () {
     //instanciar o router 
-    const router = useRouter()
+    const router = useRouter
     //estado para guardar nome do usuario
     const [name, setName] = useState <string> ("") 
     //estado para guardar email do usuario 
