@@ -17,6 +17,8 @@ import { useRouter } from "next/navigation";
 import { yupResolver } from '@hookform/resolvers/yup';
 // Importar a função para gerenciar o formulário
 import { useForm } from "react-hook-form";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 //montar schema de validação com yup
 const schema = yup.object().shape({
@@ -100,7 +102,7 @@ export default function UserCreate () {
                 <br />
 
                 {/* mostrar carregando  */}
-                {loading && <p>carregando...</p>}
+                {loading && <LoadingSpinner/>}
                 {/* mostrar erro caso tenha  */}
                 {error && <p>{error}</p>}
                 {/* mostrar sucesso caso ocorra */}

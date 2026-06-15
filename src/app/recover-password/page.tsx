@@ -11,6 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form"; 
 import { useState } from "react";
 import Link from "next/link";
+// importar animação spinner para carregando
+import LoadingSpinner from "../components/LoadingSpinner";
 
 //esquema de validação yup
 const schema = yup.object().shape({
@@ -87,7 +89,7 @@ export default function RecoverPassword () {
                 <h1 className="title-login">Recuperar senha</h1>
                 
                 {/* mostrar carregando */}
-                {loading && <p>carregando...</p>}
+                {loading && <LoadingSpinner/>}
                 {/* exibir erro se ouver */}
                 {error && <p style={{color: "#AB080B"}}>{error}</p>}
                 {/* exibir sucesso se ouver  */}

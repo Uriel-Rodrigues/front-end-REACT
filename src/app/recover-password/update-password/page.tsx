@@ -6,6 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import * as yup from 'yup'
 import instance from "@/services/api";
 import Link from "next/link";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 
 //schema de validação com yup 
@@ -127,34 +129,47 @@ export default function updatePassword () {
     },[])
 
     return (
-        <div>
-            <h1>Recuperar Senha</h1>
+        <div className="bg-login">
 
-            {/* Exibir o carregando */}
-            {loading && <p>Carregando...</p>}
-            {/* Exibe mensagem de erro */}
-            {error && <p style={{ color: "#f00" }}>{error}</p>}
-            {/* Exibe mensagem de sucesso */}
-            {success && <p style={{ color: "#086" }}>{success}</p>}
+            {/* div geral */}
+            <div className="card-login">
 
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <label htmlFor="password">Senha: </label>
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Senha com mínimo 6 caracteres"
-                        {...register('password')}
-                        className="border"
-                    /><br />
-                    {/* Exibe o erro de validação do campo */}
-                    {errors.password && <p style={{ color: "#f00" }}>{errors.password.message}</p>}
+                {/* div com a imagem */}
+                <div className="logo-wrapper-login">
+                    <img src="/image/curso_ia_unimontes-500x500.png" alt="logo" className="logo-login"/>
                 </div>
-                <button type="submit" disabled={loading}>
-                    {loading ? "Enviando..." : "Atualizar"}
-                </button>
-            </form>
-            <Link href="/login">Login</Link>
+
+                <h1 className="title-login">Recuperar senha</h1>
+                
+                {/* Exibir o carregando */}
+                {loading && <LoadingSpinner/>}
+                {/* Exibe mensagem de erro */}
+                {error && <p style={{ color: "#f00" }}>{error}</p>}
+                {/* Exibe mensagem de sucesso */}
+                {success && <p style={{ color: "#086" }}>{success}</p>}
+
+                <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
+                    <div>
+                        <label htmlFor="password" className="form-label-login" >Senha: </label>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Senha com mínimo 6 caracteres"
+                            {...register('password')}
+                            className="form-input-login"
+                        /><br />
+                        {/* Exibe o erro de validação do campo */}
+                        {errors.password && <p className="alert-danger">{errors.password.message}</p>}
+                    </div>
+                    <div className="btn-group-login">
+                        <Link href={'/login'} className="link-login">Login</Link>
+
+                        <button type="submit" disabled={loading} className="btn-primary-md items-center">
+                            {loading ? "Enviando..." : "Atualizar"}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
    

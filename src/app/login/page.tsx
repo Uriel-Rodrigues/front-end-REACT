@@ -8,6 +8,9 @@ import * as yup from "yup"
 import { resolve } from "path";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+// importar animação spinner para carregando
+import LoadingSpinner from "../components/LoadingSpinner";
+
 //criar eschema yup para validação 
 const schema = yup.object().shape({
     email: yup.string().required("o campo email é obrigatório!").email("digite um email valido!"),
@@ -90,7 +93,7 @@ export default function Login (){
                 <h1 className="title-login ">Área restrita</h1>
 
                 {/* mostrar carregamento */}
-                {loading && <p>{loading}</p>}
+                {loading && <LoadingSpinner/>}
                 {/* mostrar erro caso tenh */}
                 {error && <p className="alert-danger">{error}</p>}
                 {/* mostrar mensagfem de sucesso caso tenha */}
