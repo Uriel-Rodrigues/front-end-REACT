@@ -8,6 +8,8 @@ import instance from "@/services/api";
 import Link from "next/link";
 // importar animação spinner para carregando
 import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 
 //schema de validação com yup 
@@ -144,9 +146,9 @@ export default function updatePassword () {
                 {/* Exibir o carregando */}
                 {loading && <LoadingSpinner/>}
                 {/* Exibe mensagem de erro */}
-                {error && <p style={{ color: "#f00" }}>{error}</p>}
+                <AlertMessage type="error" message={error}/>
                 {/* Exibe mensagem de sucesso */}
-                {success && <p style={{ color: "#086" }}>{success}</p>}
+                <AlertMessage type="success" message={success}/>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
                     <div>
@@ -159,7 +161,7 @@ export default function updatePassword () {
                             className="form-input-login"
                         /><br />
                         {/* Exibe o erro de validação do campo */}
-                        {errors.password && <p className="alert-danger">{errors.password.message}</p>}
+                        {errors.password && <AlertMessage type="error" message={errors.password.message ?? null}/>}
                     </div>
                     <div className="btn-group-login">
                         <Link href={'/login'} className="link-login">Login</Link>

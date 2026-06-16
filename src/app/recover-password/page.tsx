@@ -13,6 +13,8 @@ import { useState } from "react";
 import Link from "next/link";
 // importar animação spinner para carregando
 import LoadingSpinner from "../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../components/AlertMessage";
 
 //esquema de validação yup
 const schema = yup.object().shape({
@@ -91,9 +93,9 @@ export default function RecoverPassword () {
                 {/* mostrar carregando */}
                 {loading && <LoadingSpinner/>}
                 {/* exibir erro se ouver */}
-                {error && <p style={{color: "#AB080B"}}>{error}</p>}
+                <AlertMessage type="error" message={error}/>
                 {/* exibir sucesso se ouver  */}
-                {success && <p style= {{color: "#3CB648"}}>{success}</p>}
+                <AlertMessage type="success" message={success}/>
                 
                 {/* div com formulario */}
                 <div>
@@ -108,7 +110,7 @@ export default function RecoverPassword () {
                                 {...register('email')}
                             />
                             {/* exibir erro de validação de campo */}
-                            {errors.email && <p className="alert-danger">{errors.email.message}</p>}
+                            {errors.email && <AlertMessage type="error" message={errors.email.message ?? null}/>}
                         </div>
 
                         <div className="btn-group-login">

@@ -19,6 +19,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 // importar animação spinner para carregando
 import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "@/app/components/AlertMessage";
 
 //montar schema de validação com yup
 const schema = yup.object().shape({
@@ -104,9 +106,9 @@ export default function UserCreate () {
                 {/* mostrar carregando  */}
                 {loading && <LoadingSpinner/>}
                 {/* mostrar erro caso tenha  */}
-                {error && <p>{error}</p>}
+                <AlertMessage type="error" message={error}/>
                 {/* mostrar sucesso caso ocorra */}
-                {success && <p>{success}</p>}
+                <AlertMessage type="success" message={success}/>
 
                 {/* mostrar formulario de cadastro caso tudo ok */}
                 {!loading && !error && (

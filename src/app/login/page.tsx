@@ -10,6 +10,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 // importar animação spinner para carregando
 import LoadingSpinner from "../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../components/AlertMessage";
 
 //criar eschema yup para validação 
 const schema = yup.object().shape({
@@ -95,9 +97,9 @@ export default function Login (){
                 {/* mostrar carregamento */}
                 {loading && <LoadingSpinner/>}
                 {/* mostrar erro caso tenh */}
-                {error && <p className="alert-danger">{error}</p>}
+                <AlertMessage type="error" message={error}/>
                 {/* mostrar mensagfem de sucesso caso tenha */}
-                {success && <p className="alert-success">{success}</p>}
+                <AlertMessage type="success" message={success}/>
                 {/* mostrar formulario caso não esteja carregando e não tenha erros */}
                 {!loading && !error && (
                     <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
@@ -111,7 +113,7 @@ export default function Login (){
                                 className ="form-input-login"
                             />
                             {/* exibir erros de validação de campo  */}
-                            {errors.email && <p className="alert-danger">{errors.email.message}</p> }
+                            {errors.email && <AlertMessage type="error" message={errors.email.message ?? null}/>}
                         </div>
 
                         <br /> 
@@ -126,7 +128,7 @@ export default function Login (){
                                 className ="form-input-login"
                             />
                             {/* exibir erro de validação de campo */}
-                            {errors.password && <p className="alert-danger">{errors.password.message}</p>}
+                            {errors.password && <AlertMessage type="error" message={errors.password.message ?? null}/>}
                         </div>
 
 
