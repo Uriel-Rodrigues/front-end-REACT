@@ -5,6 +5,8 @@ import Menu from "@/app/components/Menu";
 import Pagination from "@/app/components/Pagination";
 import DeleteButton from "@/app/components/DeleteButton";
 import { useEffect, useState } from "react";
+//importar hook usado para meniulçar a navegação do usuario 
+import { useRouter } from "next/navigation"
 import Link from "next/link";
 //importar componente para tornar rota protegida (precisa estar logado)
 import ProtectedRoute from "@/app/components/ProtectedRoute";
@@ -23,6 +25,8 @@ interface User {
 }
 
 export default function UserList () {
+    //istanciar o objeto router 
+    const router= useRouter()
     //estado para armazenar dados do usuario
     const [user, setUser] = useState <User[]> ([]) 
     //estado para controle de carregamento 
@@ -37,7 +41,6 @@ export default function UserList () {
     const [lastPage, setLastPage] = useState <number> (10)   
 
     //função para captar dados da API
-
     const fetchUser = async (page:number) => {
         try{
             //iniciar carregamento 
@@ -78,6 +81,13 @@ export default function UserList () {
         //recarregar a pagina
         fetchUser(currentPage)
     },[currentPage])//stualiza sempre que mudar de pagina
+
+    const handleLogaut = () => {
+        //remover o token do local storage
+        localStorage.removeItem("token")
+        //redireciona para a pagina login
+        router.push("/login")
+    }
 
     return (
         <ProtectedRoute>

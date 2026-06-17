@@ -1,16 +1,21 @@
 'use client'
 //importar hook usado para meniulçar a navegação do usuario 
-import { useRouter } from "next/navigation"
+import { useRouter,usePathname } from "next/navigation"
 
 const SideBar = () => {
     //istanciar o objeto router 
     const router= useRouter()
+    const pasthName = usePathname()
     
     const handleLogaut = () => {
         //remover o token do local storage
         localStorage.removeItem("token")
         //redireciona para a pagina login
         router.push("/login")
+    }
+
+    const isActive = (path: string) => {
+        return pasthName === path
     }
 
     return (
@@ -28,7 +33,7 @@ const SideBar = () => {
                         <span className="sidebar-title"> Uriel</span>
                     </div>
                     <nav className="sidebar-nav">
-                        <a href="/src/adm/dashboard.html" className="sidebar-link active">
+                        <a href="/deshboard" className= {`sidebar-link ${isActive("/deshboard") ? "active" : ""}`}>
                             {/* <!-- svg home (Heroicons) --> */}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
@@ -36,7 +41,7 @@ const SideBar = () => {
                             <span>Dashboard</span>
                         </a>
                         
-                        <a href="/user/list" className="sidebar-link">
+                        <a href="/user/list" className={`sidebar-link ${isActive("/user/list") ? "active":""}`}>
                             {/* <!-- svg user-group (Heroicons) --> */}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
 
@@ -45,7 +50,7 @@ const SideBar = () => {
                             <span>Usuarios</span>
                         </a>
 
-                        <a href="situation/list" className="sidebar-link">
+                        <a href="/situation/list" className={`sidebar-link ${isActive("situation/list") ? "active":""}`}>
                             {/* <!-- svg exclamation-triangle (Heroicons) --> */}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
 
@@ -54,7 +59,7 @@ const SideBar = () => {
                             <span>Situações</span>
                         </a>
 
-                        <a href="/product/list" className="sidebar-link ">
+                        <a href="/product/list" className={`sidebar-link ${isActive("/product/list") ? "active":""}`}>
                             {/* <!-- svg cursor-arrow-ripple (Heroicons) --> */}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
 
@@ -63,7 +68,7 @@ const SideBar = () => {
                             <span>Produtos</span>
                         </a>
 
-                        <a href="/product-situations/list" className="sidebar-link ">
+                        <a href="/product-situations/list" className={`sidebar-link ${isActive("/product-situations/list") ? "active":""}`}>
                             {/* <!-- svg cursor-arrow-ripple (Heroicons) --> */}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
 
@@ -72,7 +77,7 @@ const SideBar = () => {
                             <span>Situações de Produto</span>
                         </a>
 
-                        <a href="/product-categories/list" className="sidebar-link ">
+                        <a href="/product-categories/list" className={`sidebar-link ${isActive("/product-categories/list") ? "active":""}`}>
                             {/* <!-- svg cursor-arrow-ripple (Heroicons) --> */}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
 
@@ -92,7 +97,6 @@ const SideBar = () => {
                     </nav>
                 </div>
             </aside>
-
         </div>
     )
 }

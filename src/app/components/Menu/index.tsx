@@ -14,7 +14,7 @@ const Menu = () => {
     return (
         <nav>
             <ul>
-                <li><a href="/">Dashboard</a></li>
+                <li><a href="/deshboard">Dashboard</a></li>
                 <li><a href="/user/list">Usuários</a></li>
                 <li><a href="situation/list">Situações</a></li>
                 <li><a href="/product/list">produtos</a></li>
