@@ -48,7 +48,7 @@
     /****** Início Navbar ******/
      /* Estilização do fundo */
      .bg-dashboard {
-        @apply bg-gray-100;
+        @apply bg-gray-100 min-h-screen;
     }
 
     /* Navbar */

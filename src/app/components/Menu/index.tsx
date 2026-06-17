@@ -15,9 +15,11 @@ const Menu = () => {
         <nav>
             <ul>
                 <li><a href="/">Dashboard</a></li>
+                <li><a href="/user/list">Usuários</a></li>
                 <li><a href="situation/list">Situações</a></li>
-                <li><a href="product-situations/list">Situações de Produto</a></li>
-                <li><a href="product-categories/list">Categoria de Produto</a></li>
+                <li><a href="/product/list">produtos</a></li>
+                <li><a href="/product-situations/list">Situações de Produto</a></li>
+                <li><a href="/product-categories/list">Categoria de Produto</a></li>
                 <li><a href="#" onClick={handleLogaut}>SAIR</a></li>
             </ul>
         </nav>

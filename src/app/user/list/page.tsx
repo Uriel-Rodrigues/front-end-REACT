@@ -8,6 +8,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 //importar componente para tornar rota protegida (precisa estar logado)
 import ProtectedRoute from "@/app/components/ProtectedRoute";
+//importar o componente sid bar
+import SideBar from "@/app/components/SideBar";
+//importar o componente nav bar
+import NavBar from "@/app/components/NavBar";
 
 //interface para a entidade usur
 interface User {
@@ -39,7 +43,7 @@ export default function UserList () {
             //iniciar carregamento 
             setLoading(true)
             //fazer requisição
-            const response = await instance.get(`/user?page=${page}&limit=1`)
+            const response = await instance.get(`/user?page=${page}&limit=6`)
             //atualizar o estado de dados do usuario
             setUser(response.data.data)
             //atualizar o estado da pagina atual
@@ -77,57 +81,95 @@ export default function UserList () {
 
     return (
         <ProtectedRoute>
-            <Menu /> <br />
+            <div className="bg-dashboard">
+                {/* <!-- Navbar --> */}
+                <NavBar/>
+                <div className="flex">
+                    {/* <!-- sidBar --> */}
+                    <SideBar/>
+                
+                    {/* mostrar carregamento */}
+                    {loading && <p>carregando...</p>}
+                    {/* mostrar erro caso tenha */}
+                    {error && <p>{error}</p>}
+                    {/* mostrar sucesso caso tenha */}
+                    {success && <p>{success}</p>}
 
-            <Link href={`/user/create`}>Cadastrar</Link>< br/>
+                    {/* mostrar tabela com registros */}
+                    {!loading && !error && (
+                    // <!-- conteudo principal -->
+                        <div className="main-content">
+                            {/* <!-- titulo a trilha de navegação --> */}
+                            <div className="content-wrapper">
+                                <div className="content-header">
+                                    <h2 className="content-title">Usuarios</h2>
+                                    <nav className="breadcrumb">
+                                        <a href="/src/adm/dashboard.html" className=" breadcrumb-link">Dashboard</a>
+                                        <span>/</span>
+                                        <span>Usuarios</span>
+                                    </nav>
+                                </div>
+                            </div>
+                            {/* inicio do conteudo da tabela + titulo + navegação */}
+                            <div className="content-box">
+                                <div className="content-box-header">
+                                    <h3 className="content-box-title">Listar Usuários</h3> 
+                                    <div className="content-box-btn">
+                                        <a href="/src/adm/users/create.html" className="btn-success aling-icon-btn">
+                                            {/* <!-- svg user-plus (Heroicons) --> */}
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
 
-            < br/><h1>Lista de usuarios </h1> <br />
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                                            </svg>
+                                            <span>Cadastrar</span>
+                                        </a>
+                                    </div>
+                                </div>
 
-            {/* mostrar carregamento */}
-            {loading && <p>carregando...</p>}
-            {/* mostrar erro caso tenha */}
-            {error && <p>{error}</p>}
-            {/* mostrar sucesso caso tenha */}
-            {success && <p>{success}</p>}
-
-            {/* mostrar tabela com registros */}
-            {!loading && !error && (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Id -</th>
-                            <th>- Nome -</th>
-                            <th>- email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {user.map((user) => (
-                            <tr key = {user.id}>
-                                <td>{user.id} -</td>
-                                <td>- {user.name} -</td>
-                                <td>- {user.email} -</td>
-                                <td>- 
-                                    <Link href={`/user/${user.id}`}>Visualizar</Link> 
-                                    <Link href={`/user/edit?id=${user.id}`}>- editar -</Link> 
-                                    <DeleteButton
-                                        id={String(user.id)}
-                                        route="user"
-                                        onSuccess={handleSuccess}
-                                        setError={setError}
-                                        setSuccess={setSuccess}
-                                    />
-                                    </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
-            {/* paginação */}
-            <Pagination 
-                currentPage={currentPage}
-                lastPage={lastPage}
-                onPageChange={setCurrentPage}
-            />
+                                {/* <!-- Criação da tabela com Usuarios (ações) --> */}
+                                <div className="table-container">    
+                                    <table className="table">
+                                        <thead>
+                                            <tr className="table-row-header">
+                                                <th className="table-header">Id </th>
+                                                <th className="table-header">Nome </th>
+                                                <th className="table-header hidden lg:table-cell">email</th>
+                                                <th className="table-header center">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {user.map((user) => (
+                                                <tr key = {user.id} className="table-row-body">
+                                                    <td className="table-body">{user.id}</td>
+                                                    <td className="table-body">{user.name}</td>
+                                                    <td className="table-body hidden lg:table-cell">{user.email} </td>
+                                                    <td className="table-body table-actions">
+                                                        <Link href={`/user/${user.id}`} className="btn-primary">Visualizar</Link> 
+                                                        <Link href={`/user/edit?id=${user.id}`}className="btn-warning hidden md:inline-block">editar</Link> 
+                                                        <DeleteButton  
+                                                            id={String(user.id)}
+                                                            route="user"
+                                                            onSuccess={handleSuccess}
+                                                            setError={setError}
+                                                            setSuccess={setSuccess}
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {/* paginação */}
+                                <Pagination 
+                                    currentPage={currentPage}
+                                    lastPage={lastPage}
+                                    onPageChange={setCurrentPage}
+                                />
+                            </div>
+                        </div>  
+                    )}
+                </div>  
+            </div>
         </ProtectedRoute>
 
     )

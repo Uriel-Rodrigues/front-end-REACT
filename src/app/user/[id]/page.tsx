@@ -5,6 +5,7 @@ import Link from "next/link";
 import DeleteButton from "@/app/components/DeleteButton";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+//importa hooks para manipular a navegação do usuario
 import { useRouter } from "next/navigation";
 //importar componente para tornar rota protegida (precisa estar logado)
 import ProtectedRoute from "@/app/components/ProtectedRoute";

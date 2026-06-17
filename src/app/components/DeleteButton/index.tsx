@@ -7,6 +7,7 @@ interface DeleteButtonProps{
     onSuccess?: () => void //função de callback apos sucesso
     setError: (menssage: string | null) => void //função de callback para retornar menssagem de erro 
     setSuccess: (menssage: string | null) => void //função de callback para retornar menssagem de sucesso
+    className?: string
 }
 
 export default function DeleteButton({id, route, onSuccess, setError, setSuccess}: DeleteButtonProps){
@@ -45,7 +46,7 @@ export default function DeleteButton({id, route, onSuccess, setError, setSuccess
     }
     return (
         <div>
-            <button onClick={handleDelete} disabled = {loading}>
+            <button onClick={handleDelete} disabled = {loading} className="btn-danger hidden md:inline-block">
                 {loading?"Excluindo..." : "Apagar"}
             </button>
         </div>
