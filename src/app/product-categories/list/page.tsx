@@ -9,7 +9,9 @@ import Pagination from "@/app/components/Pagination";
 import Menu from "@/app/components/Menu";
 import DeleteButton from "@/app/components/DeleteButton";
 import ProtectedRoute from "@/app/components/ProtectedRoute";
+//importar componente de navbar
 import NavBar from "@/app/components/NavBar";
+//importar componente de sidbar
 import SideBar from "@/app/components/SideBar";
 
 //definir tipos para a resposta da API
@@ -98,7 +100,7 @@ export default function ProductCategoriesList() {
                                 <div className="content-header">
                                     <h2 className="content-title">Produtos-Categorias</h2>
                                     <nav className="breadcrumb">
-                                        <a href="/src/adm/dashboard.html" className=" breadcrumb-link">Dashboard</a>
+                                        <a href="/deshboard" className=" breadcrumb-link">Dashboard</a>
                                         <span>/</span>
                                         <span>Produtos-Categorias</span>
                                     </nav>
@@ -109,7 +111,7 @@ export default function ProductCategoriesList() {
                                 <div className="content-box-header">
                                     <h3 className="content-box-title">Produtos-Categorias</h3>
                                     <div className="content-box-btn">
-                                        <a href="/src/adm/users/create.html" className="btn-success aling-icon-btn">
+                                        <a href={`/product-categories/create`} className="btn-success aling-icon-btn">
                                             {/* <!-- svg user-plus (Heroicons) --> */}
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
 
@@ -120,6 +122,7 @@ export default function ProductCategoriesList() {
                                     </div>
                                 </div>
 
+                                {/* <!-- Criação da tabela com Usuarios (ações) --> */}
                                 <div className="table-container">
                                     <table className="table">
                                         <thead>
@@ -132,8 +135,8 @@ export default function ProductCategoriesList() {
                                         <tbody>
                                             {categories.map((categories) => (
                                                 <tr key={categories.id} className="table-row-body">
-                                                    <th className="table-body">{categories.id}</th> 
-                                                    <th className="table-body">{categories.name}</th>
+                                                    <td className="table-body">{categories.id}</td> 
+                                                    <td className="table-body">{categories.name}</td>
                                                     <td className="table-body table-actions">
                                                         <Link href = {`/product-categories/${categories.id}`} className="btn-primary">Visualizar</Link> 
                                                         <Link href={`/product-categories/edit?id=${categories.id}`} className="btn-warning hidden md:inline-block">Editar</Link>
