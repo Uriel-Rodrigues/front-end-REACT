@@ -14,6 +14,11 @@ import Link from "next/link"
 import { useState } from "react"
 //importar componente para tornar rota protegida (precisa estar logado)
 import ProtectedRoute from "@/app/components/ProtectedRoute";
+//importar o componente sid bar
+import SideBar from "@/app/components/SideBar";
+//importar o componente nav bar
+import NavBar from "@/app/components/NavBar";
+
 
 //esquema de validação com yup
 const schema = yup.object().shape({
@@ -84,34 +89,73 @@ export default function Situation () {
 
     return (
         <ProtectedRoute>
-            <Menu /><br />
-            <Link href={`/situation/list`}> List</Link>
-            <h1>Cadastrar Situação</h1>
-            {/* exibir carregando */}
-            {loading && <p>Carregando...</p>}
-            {/* exibir error se houver */}
-            {error && <p style={{color:"#AB080B"}}>{error}</p>}
-            {/* exibir mensagem de sucesso */}
-            {success && <p style={{color:"#3CB648"}}>{success}</p>}
+            <div className="bg-dashboard">
+                <NavBar/>
+                <div className="flex">
+                    <SideBar/>
 
-            <form onSubmit={handleSubmit(onsubmit)}>
-                <div>
-                    <label htmlFor="nomeSituation">Nome da Situação: </label>
-                    <input 
-                        type="text" 
-                        id ="nomeSituation"
-                       //value={nameSituation}
-                        placeholder="Nome da Situação"
-                        //onChange={(e)=> setNameSituation(e.target.value)}
-                        {...register('nameSituation')}         
-                    />
-                    {/* exibe o erro de validação do campo */}
-                    {errors.nameSituation && <p style={{color:"#AB080B"}}>{errors.nameSituation.message}</p>}
+                    {/* exibir carregando */}
+                    {loading && <p>Carregando...</p>}
+                    {/* exibir error se houver */}
+                    {error && <p style={{color:"#AB080B"}}>{error}</p>}
+                    {/* exibir mensagem de sucesso */}
+                    {success && <p style={{color:"#3CB648"}}>{success}</p>}
+                    
+                    {/* <!-- conteudo principal --> */}
+                    <main className="main-content">
+                        {/* <!-- titulo a trilha de navegação --> */}
+                        <div className="content-wrapper">
+                            <div className="content-header">
+                                <h2 className="content-title">Situações</h2>
+                                <nav className="breadcrumb">
+                                    <a href="/deshboard" className="breadcrumb-link">Dashboard</a>
+                                    <span>/</span>
+                                    <a href={`/situation/list`} className="breadcrumb-link">Situação</a>
+                                    <span>/</span>
+                                    <span>Cadastrar</span>
+                                </nav>
+                            </div>
+                        </div>
+
+                        {/* inicio do formulario */}
+                        <div className="content-box">
+                            <div className="content-box-header">
+                                <h3 className="content-box-title">Cadastrar Situação</h3>
+                                <div className="content-box-btn">
+                                    <a href={`/situation/list`} className="btn-info aling-icon-btn">
+
+                                        {/* <!-- svg list-bullet (Heroicons) --> */}
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                        </svg>
+                                        <span>Listar</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <form onSubmit={handleSubmit(onsubmit)}>
+                                <div className="mb-4">
+                                    <label htmlFor="nomeSituation" className="form-label">Nome da Situação: </label>
+                                    <input 
+                                        type="text" 
+                                        id ="nomeSituation"
+                                        placeholder="Nome da Situação"
+                                        {...register('nameSituation')}
+                                        className="form-input"   
+                                    />
+                                    {/* exibe o erro de validação do campo */}
+                                    {errors.nameSituation && <p style={{color:"#AB080B"}}>{errors.nameSituation.message}</p>}
+                                </div>
+
+                                <button type="submit" disabled = {loading} className="btn-success">
+                                    {loading ? "Enviado...":"Cadastrar"}
+                                </button>
+                            </form>
+                        </div>
+                    </main>
                 </div>
-                <button type="submit" disabled = {loading}>
-                    {loading ? "Enviado...":"Cadastrar"}
-                </button>
-            </form>
+            </div>
         </ProtectedRoute>
     )
 }

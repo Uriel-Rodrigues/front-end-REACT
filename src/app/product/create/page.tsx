@@ -7,7 +7,12 @@ import * as yup from "yup"
 import { yupResolver} from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { UseForm } from "react-hook-form";
+//importar componente para proteção de rotas
 import ProtectedRoute from "@/app/components/ProtectedRoute";
+//importar o componente sid bar
+import SideBar from "@/app/components/SideBar";
+//importar o componente nav bar
+import NavBar from "@/app/components/NavBar";
 
 //schema de alidação com yup
 const schema = yup.object().shape({
@@ -86,69 +91,115 @@ export default function Product () {
     
     return(
         <ProtectedRoute>
-            < Menu /> <br />
+            <div className="bg-dashboard">
+                <NavBar/>
+                <div className="flex">
+                    <SideBar/>
 
-            <Link href={`/product/list`}>Listar</Link> <br /> 
-            <br />  <h1>Cadastro de produtos</h1> <br />
-            {/* mostrar carregando */}
-            {loading && <p>carregando...</p>}
-            {/* mostrar menssagem de erro se ouver */}
-            {error && <p>{error}</p> }
-            {/* mostrar menssagem de sucesso se ouver */}
-            {success && <p>{success}</p>}
+                    {/* mostrar carregando */}
+                    {loading && <p>carregando...</p>}
+                    {/* mostrar menssagem de erro se ouver */}
+                    {error && <p>{error}</p> }
+                    {/* mostrar menssagem de sucesso se ouver */}
+                    {success && <p>{success}</p>}
 
-            {/* campos de cadastro para produto */}
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="nameProduct">Nome do Produto: </label>
-                    <input 
-                        type="text"
-                        id = "nameProduct"
-                        value={nameProduct}
-                        placeholder="Nome do Produto"
-                        onChange={(e) => setNameProduct(e.target.value)}
-                    /> <br />
-                    <label htmlFor="description">Descrição do produto: </label>
-                    <input 
-                        type="text"
-                        id="description"
-                        value={description}
-                        placeholder="descrição do produto" 
-                        onChange={(e) => setDescription(e.target.value)}
-                    /> <br />
-                    <label htmlFor="price">preço do produto: </label>
-                    <input 
-                        type="number"
-                        id="price"
-                        value={price}
-                        placeholder="Preço do Produto"
-                        min={0.00}
-                        step={0.01}
-                        onChange={(e) => setPrice(e.target.value)}
-                    /> <br/>
-                    <label htmlFor="situation">Situação do Produto: </label>
-                    <input 
-                        type="number"  
-                        id="situation"
-                        value={situation}
-                        placeholder="situação do produto"
-                        onChange={(e) => setSituation(e.target.value) } 
-                    /><br />
-                    <label htmlFor="category">Categoria do Produto: </label>
-                    <input 
-                        type="text" 
-                        id="category"
-                        value={category}
-                        placeholder="Categoria do Produto"
-                        onChange={(e) => setCategory(e.target.value)}
-                    /> <br />
+                    {/* <!-- conteudo principal --> */}
+                    <main className="main-content">
+                        {/* <!-- titulo a trilha de navegação --> */}
+                        <div className="content-wrapper">
+                            <div className="content-header">
+                                <h2 className="content-title">Produto</h2>
+                                <nav className="breadcrumb">
+                                    <a href="/deshboard" className="breadcrumb-link">Dashboard</a>
+                                    <span>/</span>
+                                    <a href={`/product/list`} className="breadcrumb-link">Produto</a>
+                                    <span>/</span>
+                                    <span>Cadastrar</span>
+                                </nav>
+                            </div>
+                        </div>
+
+                        <div className="content-box">
+                            <div className="content-box-header">
+                                <h3 className="content-box-title">Cadastrar Produto</h3>
+                                <div className="content-box-btn">
+                                    <a href={`/product/list`} className="btn-info aling-icon-btn">
+                                        {/* <!-- svg list-bullet (Heroicons) --> */}
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                        </svg>
+                                        <span>Listar</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-4">
+                                    <label htmlFor="nameProduct" className="form-label">Nome do Produto: </label>
+                                    <input 
+                                        type="text"
+                                        id = "nameProduct"
+                                        value={nameProduct}
+                                        placeholder="Nome do Produto"
+                                        onChange={(e) => setNameProduct(e.target.value)}
+                                        className="form-input"
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="description" className="form-label">Descrição do produto: </label>
+                                    <input 
+                                        type="text"
+                                        id="description"
+                                        value={description}
+                                        placeholder="descrição do produto" 
+                                        onChange={(e) => setDescription(e.target.value)}
+                                        className="form-input"
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="price" className="form-label">preço do produto: </label>
+                                    <input 
+                                        type="number"
+                                        id="price"
+                                        value={price}
+                                        placeholder="Preço do Produto"
+                                        min={0.00}
+                                        step={0.01}
+                                        onChange={(e) => setPrice(e.target.value)}
+                                        className="form-input"
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="situation" className="form-label">Situação do Produto: </label>
+                                    <input 
+                                        type="number"  
+                                        id="situation"
+                                        value={situation}
+                                        placeholder="situação do produto"
+                                        onChange={(e) => setSituation(e.target.value)}
+                                        className="form-input" 
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label htmlFor="category" className="form-label">Categoria do Produto: </label>
+                                    <input 
+                                        type="text" 
+                                        id="category"
+                                        value={category}
+                                        placeholder="Categoria do Produto"
+                                        onChange={(e) => setCategory(e.target.value)}
+                                        className="form-input"
+                                    />
+                                </div>
+                                <button type="submit" disabled = {loading} className="btn-success">
+                                        {loading ? "Cadastrando...": "CADASTRAR"}
+                                </button>
+                            </form>
+                        </div>
+                    </main>
                 </div>
-                <button type="submit" disabled = {loading}>
-                    {loading ? "enviando...": "CADASTRAR"}
-                </button>
-            </form>
-           
-
+            </div>
         </ProtectedRoute>
     )
 } 
