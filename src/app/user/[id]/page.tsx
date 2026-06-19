@@ -9,11 +9,16 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 //importar componente para tornar rota protegida (precisa estar logado)
 import ProtectedRoute from "@/app/components/ProtectedRoute";
+//importar o componente sid bar
+import SideBar from "@/app/components/SideBar";
+//importar o componente nav bar
+import NavBar from "@/app/components/NavBar";
 
 interface User {
     id: number
     name:string
     email: string
+    situation: { nameSituation: string }
     createdAt: string
     updatedAt: string 
 }
@@ -78,34 +83,100 @@ export default function UserDetails () {
 
     return(
         <ProtectedRoute>
-            <Menu /> <br />
+            <div className="bg-dashboard">
+                <NavBar/>
+                <div className="flex">
+                    <SideBar/>
 
-            <Link href={`/user/list`}> Listar</Link> <br />
-            {/* aplicando botão "deletar" */}
-            <DeleteButton
-                id = {String(user?.id)}
-                route = "user"
-                onSuccess={handleSuccess}
-                setError={setError}
-                setSuccess={setSuccess}
-            />
+                    {/* mostrar estatos de carregando */}
+                    {loading && <p>carregado...</p>}
+                    {/* mostrar errro caso tenha */}
+                    {error && <p>{error}</p>}
+                    {/* mostrar menssagem de sucessso caso tenha */}
+                    {success && <p>{success}</p>}
+                    {/* mostrar detalhes do usuario caso tudo correto */}
+                    {!error && !loading && (
 
-            <br />
-            <h1>Detalhes do usuario</h1> <br />
-            {/* mostrar estatos de carregando */}
-            {loading && <p>carregado...</p>}
-            {/* mostrar errro caso tenha */}
-            {error && <p>{error}</p>}
-            {/* mostrar menssagem de sucessso caso tenha */}
-            {success && <p>{success}</p>}
-            {/* mostrar detalhes do usuario caso tudo correto */}
-            {!error && !loading && (
-                <div>
-                    <p>ID: {user?.id}</p>
-                    <p>Nome: {user?.name}</p>
-                    <p>Email: {user?.email}</p>
+                        // <!-- conteudo principal -->
+                        <main className="main-content">
+                            {/* <!-- titulo a trilha de navegação --> */}
+                            <div className="content-wrapper">
+                                <div className="content-header">
+                                    <h2 className="content-title">Usuários</h2>
+                                    <nav className="breadcrumb">
+                                        <a href="/deshboard" className=" breadcrumb-link">Dashboard</a>
+                                        <span>/</span>
+                                        <a href="/src/adm/users/list.html" className=" breadcrumb-link">Usuários </a>
+                                        <span>/</span>
+                                        <span>Visualizar</span>
+                                    </nav>
+                                </div>
+                            </div>
+                            
+                            {/* inicio conteudo princpal + botoes + titulo */}
+                            <div className="content-box">
+                                <div className="content-box-header">
+                                    <h3 className="content-box-title">Visualizar Usuários</h3>
+                                    <div className="content-box-btn">
+                                        <a href={`/user/list`} className="btn-info aling-icon-btn">
+                                            {/* <!-- svg list-bullet (Heroicons) --> */}
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                            </svg>
+                                            <span>Listar</span>
+                                        </a>
+                                        <a href={`/user/edit`} className="btn-warning aling-icon-btn ">
+                                            {/* <!-- svg pencil-square (Heroicons) --> */}
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                            </svg>
+                                            <span>Editar</span>
+                                        </a>
+                                        {/* aplicando botão "deletar" */}
+                                        <DeleteButton
+                                            id = {String(user?.id)}
+                                            route = "user"
+                                            onSuccess={handleSuccess}
+                                            setError={setError}
+                                            setSuccess={setSuccess}
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* "detalhes do usuarios" */}
+                                <div className="detail-box">
+
+                                    <div className="mb-1">
+                                        <span className="detail-content">ID: {user?.id}</span>
+                                    </div>
+
+                                    <div className="mb-1">
+                                        <span className="detail-content">Nome: {user?.name}</span>
+                                    </div>
+
+                                    <div className="mb-1">
+                                        <span className="detail-content">Email: {user?.email}</span>
+                                    </div>
+
+                                    <div className="mb-1">
+                                        <span className="detail-content">Situação: {user?.situation?.nameSituation} </span>
+                                    </div>
+
+                                    <div className="mb-1">
+                                        <span className="detail-content">Criado em: {user?.createdAt ? new Date(user.createdAt).toLocaleString() : "Data não disponível"}</span>
+                                    </div>
+
+                                    <div className="mb-1">
+                                        <span className="detail-content">Editado em: {user?.updatedAt ? new Date(user.updatedAt).toLocaleString() : "Data não disponível"}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </main>
+                    )}   
                 </div>
-            )}
+            </div>
         </ProtectedRoute>
     )
 

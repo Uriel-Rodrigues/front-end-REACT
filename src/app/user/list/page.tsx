@@ -114,7 +114,7 @@ export default function UserList () {
                                 <div className="content-header">
                                     <h2 className="content-title">Usuarios</h2>
                                     <nav className="breadcrumb">
-                                        <a href="/src/adm/dashboard.html" className=" breadcrumb-link">Dashboard</a>
+                                        <a href="/deshboard" className=" breadcrumb-link">Dashboard</a>
                                         <span>/</span>
                                         <span>Usuarios</span>
                                     </nav>
@@ -125,7 +125,7 @@ export default function UserList () {
                                 <div className="content-box-header">
                                     <h3 className="content-box-title">Listar Usuários</h3> 
                                     <div className="content-box-btn">
-                                        <a href="/src/adm/users/create.html" className="btn-success aling-icon-btn">
+                                        <a href={`/user/create`} className="btn-success aling-icon-btn">
                                             {/* <!-- svg user-plus (Heroicons) --> */}
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
 

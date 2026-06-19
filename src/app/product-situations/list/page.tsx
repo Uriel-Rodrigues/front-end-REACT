@@ -138,7 +138,7 @@ export default function SituationList (){
                                                 <tr key = {situation.id} className="table-row-body">
                                                     <td className="table-body">{situation.id}</td>
                                                     <td className="table-body">{situation.name}</td>
-                                                    <th className="table-body table-actions">
+                                                    <td className="table-body table-actions">
                                                         <Link href= {`/product-situations/${situation.id}`} className="btn-primary">Visualizar</Link> 
                                                         <Link href={`/product-situations/edit?id=${situation.id}`} className="btn-warning hidden md:inline-block">Editar</Link>
                                                         
@@ -149,7 +149,7 @@ export default function SituationList (){
                                                             setError={setError}
                                                             setSuccess={setSuccess}
                                                         />
-                                                    </th>
+                                                    </td>
                                                 </tr>
                                             ))}
                                         </tbody>

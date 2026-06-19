@@ -1,10 +1,13 @@
 'use client'
 //importar hook usado para meniulçar a navegação do usuario 
-import { useRouter,usePathname } from "next/navigation"
+import { useRouter } from "next/navigation"
+//importar hook que permit capturar a URL da pagina do usuario 
+import {usePathname } from "next/navigation"
 
 const SideBar = () => {
     //istanciar o objeto router 
     const router= useRouter()
+    //istanciar o objeto pasthName capturar URL
     const pasthName = usePathname()
     
     const handleLogaut = () => {
@@ -14,6 +17,7 @@ const SideBar = () => {
         router.push("/login")
     }
 
+    //função compara a url encaminhada (parametro) e url da pagina atual do usuario 
     const isActive = (path: string) => {
         return pasthName === path
     }
@@ -50,7 +54,7 @@ const SideBar = () => {
                             <span>Usuarios</span>
                         </a>
 
-                        <a href="/situation/list" className={`sidebar-link ${isActive("situation/list") ? "active":""}`}>
+                        <a href="/situation/list" className={`sidebar-link ${isActive("/situation/list") ? "active":""}`}>
                             {/* <!-- svg exclamation-triangle (Heroicons) --> */}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
 

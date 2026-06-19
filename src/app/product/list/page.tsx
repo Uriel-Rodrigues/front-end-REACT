@@ -11,6 +11,7 @@ import Link from "next/link";
 import ProtectedRoute from "@/app/components/ProtectedRoute";
 //importa o componente para a navbar
 import NavBar from "@/app/components/NavBar";
+//importa o componente para a SidBar
 import SideBar from "@/app/components/SideBar";
 
 
