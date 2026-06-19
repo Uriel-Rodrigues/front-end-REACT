@@ -151,10 +151,10 @@ export default function productList(){
                                                     <td className="table-body">{product.id}</td>
                                                     <td className="table-body">{product.name}</td>
                                                     <td className="table-body table-actions"> 
-                                                        <Link href = {`/product/${product.slug}`} className="btn-primary"> Viasualizar</Link> 
-                                                        <Link href={`/product/edit?id=${product.slug}`} className="btn-warning hidden md:inline-block">Editar</Link>  
+                                                        <Link href = {`/product/${product.id}`} className="btn-primary"> Viasualizar</Link> 
+                                                        <Link href={`/product/edit?id=${product.id}`} className="btn-warning hidden md:inline-block">Editar</Link>  
                                                         <DeleteButton 
-                                                            id = {String(product.slug)}
+                                                            id = {String(product.id)}
                                                             route = "product"
                                                             onSuccess={handleSuccess}
                                                             setError={setError}

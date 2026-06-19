@@ -12,7 +12,6 @@ import NavBar from "@/app/components/NavBar";
 import SideBar from "@/app/components/SideBar";
 //importar componente para proteger rota
 import ProtectedRoute from "@/app/components/ProtectedRoute";
-import { mainModule } from "process";
 
 
 interface Product {
@@ -29,8 +28,7 @@ interface Product {
 
 export default function ProducDetail(){
     //pegar parametro da url
-    //const {id} = useParams();
-    const {slug} = useParams()
+    const {id} = useParams();
     //instanciar router para poder usar
     const router = useRouter()
     //criar um estado para armazenar Produto
@@ -43,12 +41,12 @@ export default function ProducDetail(){
     const [success , setSuccess] = useState <string | null> (null)
 
     //função para fazer a requisição para a API
-    const fetchProducts = async (slug: string) => {
+    const fetchProducts = async (id: string) => {
         try{
             //iniciar o carregamento
             setLoading(true)
             //fazer a requisição para a api
-            const response = await instance.get(`/product/${slug}`)
+            const response = await instance.get(`/product/${id}`)
             //atualizar os dados com o que retornar da requisição
             setProduct(response.data)
             //terminar o carregamento
@@ -78,13 +76,13 @@ export default function ProducDetail(){
     }
     //hook para atualizar os dados quando o ID estiver disponivel
     useEffect(()=>{
-        if(slug) {
+        if(id) {
             //garatir que o id seja uma string
-            const productId = Array.isArray(slug) ? slug[0] : slug
+            const productId = Array.isArray(id) ? id[0] : id
             //buscar os dados caso o id esteja disponivel
             fetchProducts(productId)
         }
-    },[slug]) // recarrega os dados quando o id mudar
+    },[id]) // recarrega os dados quando o id mudar
 
     //inicio da parte visual da aplicação
     return(
