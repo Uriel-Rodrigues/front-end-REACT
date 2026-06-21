@@ -11,6 +11,10 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import SideBar from "@/app/components/SideBar";
 //importar o componente nav bar
 import NavBar from "@/app/components/NavBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 //cria esquema de validação com yup
 const schema = yup.object().shape({
@@ -123,11 +127,11 @@ export default function User () {
                     <SideBar/>
       
                     {/* mostrar carregando */}
-                    {loading && <p>carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* mostrar menssagem de erro caso tenha */}
-                    {error && <p>{error}</p>}
+                    <AlertMessage type="error" message={error}/>
                     {/* mostrar menssagem de sucesso caso tenha */}
-                    {success && <p>{success}</p>}
+                    <AlertMessage type="success" message={success}/>
                     {/* mostrar dados do formulario caso tudo bem  */}
                     {!loading && !error && (
                         <main className="main-content">

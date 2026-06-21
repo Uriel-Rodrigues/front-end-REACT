@@ -13,6 +13,10 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import NavBar from "@/app/components/NavBar";
 //importar componente de sidbar
 import SideBar from "@/app/components/SideBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 //definir tipos para a resposta da API
 interface Categories {
@@ -87,11 +91,11 @@ export default function ProductCategoriesList() {
                     <SideBar/>
                                     
                     {/* exibir o carregando... */}
-                    {loading && <p>carregando....</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* exibe erros se ouver */}
-                    {error && <p style={{color:"#AB080B"}}>{error}</p>}
+                    <AlertMessage type="error" message={error}/>
                     {/* exibe mensagem de sucesso */}
-                    {success && <p style={{color:"#3CB648"}}>{success}</p>}
+                    <AlertMessage type="success" message={success}/>
 
                     {!loading && !error && (
                         <main className="main-content">

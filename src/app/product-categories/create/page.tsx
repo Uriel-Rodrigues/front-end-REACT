@@ -16,6 +16,10 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import SideBar from "@/app/components/SideBar";
 //importar o componente nav bar
 import NavBar from "@/app/components/NavBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 const schema = yup.object().shape({
     name: yup.string().required("o nome da categoria do produto é um campo obrigatorio")
@@ -94,12 +98,11 @@ export default function Categories() {
                     <SideBar/>
 
                     {/* exibir carregando */}
-                    {loading && <p>carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* exibir erro se ouver  */}
-                    {error && <p style={{color: "#AB080B"}}>{error}</p>}
+                    <AlertMessage type="error" message={error}/>
                     {/* exibir sucesso se ouver */}
-                    {success && <p style={{color:"#3CB648"}}>{success}</p>}
-                    
+                    <AlertMessage type="success" message={success}/>
                     {/* conteudo principal */}
                     <main className="main-content">
                         {/* <!-- titulo a trilha de navegação --> */}
@@ -144,7 +147,7 @@ export default function Categories() {
                                         className="form-input"
                                     />
                                     {/* exibe a mensagem de erro caso exista*/}
-                                    {errors.name && <p style={{color: "#AB080B"}}>{errors.name.message}</p> }
+                                    {errors.name && < AlertMessage  type="error" message={errors.name.message ?? null}/> }
                                 </div>
                                 <button type="submit" disabled = {loading} className="btn-success">
                                     {loading ? "Enviando..." : "Cadastrar"}

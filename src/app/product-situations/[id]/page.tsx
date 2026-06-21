@@ -15,11 +15,14 @@ import { useParams } from "next/navigation"
 import { useRouter } from "next/navigation"
 //impotar componente para proteger rotas
 import ProtectedRoute from "@/app/components/ProtectedRoute";
-
 //importa o componente para a navbar
 import NavBar from "@/app/components/NavBar";
 //importa o componente para a SidBar
 import SideBar from "@/app/components/SideBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 interface situation {
     id: number,
@@ -98,10 +101,11 @@ const situationDetails = ()=> {
 
 
                     {/* exibir o carregando */}
-                    {loading && <p>carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* exibir erro se houver */}
-                    {error && <p style={{color:"#AB080B"}}>{error}</p>}
-
+                    <AlertMessage type="error" message={error}/>
+                    {/* exibir sucesso se houver */}
+                    <AlertMessage type="success" message={success}/>
                     {/* imprimir os detalhes do produto */}
                     {situation && !loading && !error && (
 

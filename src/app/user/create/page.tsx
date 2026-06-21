@@ -12,7 +12,10 @@ import { useRouter } from "next/navigation";
 import SideBar from "@/app/components/SideBar";
 //importar o componente nav bar
 import NavBar from "@/app/components/NavBar";
-
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 //montar schema de validação com yup
 const schema = yup.object().shape({
@@ -93,11 +96,11 @@ export default function UserCreate () {
                 <div className="flex">
                     <SideBar/>
                     {/* mostrar carregando  */}
-                    {loading && <p>carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* mostrar erro caso tenha  */}
-                    {error && <p>{error}</p>}
+                    <AlertMessage type="error" message={error}/>
                     {/* mostrar sucesso caso ocorra */}
-                    {success && <p>{success}</p>}
+                    <AlertMessage type="success" message={success}/>
 
                     {/* mostrar formulario de cadastro caso tudo ok */}
                     {!loading && !error && (

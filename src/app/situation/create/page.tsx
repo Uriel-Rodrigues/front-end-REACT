@@ -18,6 +18,10 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import SideBar from "@/app/components/SideBar";
 //importar o componente nav bar
 import NavBar from "@/app/components/NavBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 
 //esquema de validação com yup
@@ -95,11 +99,11 @@ export default function Situation () {
                     <SideBar/>
 
                     {/* exibir carregando */}
-                    {loading && <p>Carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* exibir error se houver */}
-                    {error && <p style={{color:"#AB080B"}}>{error}</p>}
+                    <AlertMessage type="error" message={error}/>
                     {/* exibir mensagem de sucesso */}
-                    {success && <p style={{color:"#3CB648"}}>{success}</p>}
+                    <AlertMessage type="success" message={success}/>
                     
                     {/* <!-- conteudo principal --> */}
                     <main className="main-content">
@@ -145,7 +149,7 @@ export default function Situation () {
                                         className="form-input"   
                                     />
                                     {/* exibe o erro de validação do campo */}
-                                    {errors.nameSituation && <p style={{color:"#AB080B"}}>{errors.nameSituation.message}</p>}
+                                    {errors.nameSituation && <AlertMessage type="error" message={errors.nameSituation.message ?? null}/>}
                                 </div>
 
                                 <button type="submit" disabled = {loading} className="btn-success">

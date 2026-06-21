@@ -12,6 +12,10 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import SideBar from "@/app/components/SideBar";
 //importar o componente nav bar
 import NavBar from "@/app/components/NavBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 export default function Situation() {
     //capturar parametro ID encaminhado na URL
@@ -118,11 +122,11 @@ export default function Situation() {
                     <SideBar/>
 
                     {/* exibir carregamento */}
-                    {loading && <p>Carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* exibir erros caso tenha */}
-                    {error && <p style={{color:"#AB080B"}}>{error}</p>}
+                    <AlertMessage type="error" message={error}/>
                     {/* exibir mensagem de sucesso se ouver */}
-                    {success && <p style = {{color:"#3CB648"}}>{success}</p>} 
+                    <AlertMessage type="success" message={success}/>
 
                     {/* conteudo principal */}
                     <main className="main-content">

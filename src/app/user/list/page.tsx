@@ -14,6 +14,10 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import SideBar from "@/app/components/SideBar";
 //importar o componente nav bar
 import NavBar from "@/app/components/NavBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 //interface para a entidade usur
 interface User {
@@ -99,11 +103,11 @@ export default function UserList () {
                     <SideBar/>
                 
                     {/* mostrar carregamento */}
-                    {loading && <p>carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* mostrar erro caso tenha */}
-                    {error && <p>{error}</p>}
+                    <AlertMessage type="error" message={error}/>
                     {/* mostrar sucesso caso tenha */}
-                    {success && <p>{success}</p>}
+                    <AlertMessage type="success" message={success}/>
 
                     {/* mostrar tabela com registros */}
                     {!loading && !error && (

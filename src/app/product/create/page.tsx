@@ -4,23 +4,28 @@ import instance from "@/services/api";
 import Menu from "@/app/components/Menu";
 import Link from "next/link";
 import * as yup from "yup"
+import { resolve } from "path";
 import { yupResolver} from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { UseForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 //importar componente para proteção de rotas
 import ProtectedRoute from "@/app/components/ProtectedRoute";
 //importar o componente sid bar
 import SideBar from "@/app/components/SideBar";
 //importar o componente nav bar
 import NavBar from "@/app/components/NavBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 //schema de alidação com yup
 const schema = yup.object().shape({
     name: yup.string().required("o campo nome do produto é obrigatorio!").min(3,"o campo nome deve conter no minimo 3 caracteres"),
     description: yup.string().required("é necessario atribuir alguma descrição ao produto!").min(20, "a descrição deve ter no minimo 20 caracteres"),
-    price: yup.number().required("o campo de preço é obrigatorio!"),
-    category: yup.number().required("obrigatorio indicar a categoria do produto"),
-    situation: yup.number().required("é obrigatorio indicar a situação do produto")  
+    price: yup.number().transform((convertedValue, receivedValue) => receivedValue==="" ? undefined : convertedValue).required("o campo de preço é obrigatorio!"),
+    category: yup.number().transform((convertedValue, receivedValue) => receivedValue==="" ? undefined : convertedValue).required("obrigatorio indicar a categoria do produto!"),
+    situation: yup.number().transform((convertedValue, receivedValue) => receivedValue==="" ? undefined : convertedValue).required("é obrigatorio indicar a situação do produto!")  
 })
 
 export default function Product () {
@@ -41,10 +46,13 @@ export default function Product () {
     // criar estado para controle de sucesso
     const [success, setSuccess] = useState <string | null> (null)
 
+    //iniciar o formulario com validações
+        const {register, handleSubmit, formState :{errors}, reset} = useForm({
+            resolver: yupResolver(schema)
+        })
+
     //função para encaminar os dados para a API
-    const handleSubmit = async (event: React.FormEvent) => {
-        //evitar o carregamento da pagina ao enviar o formulario 
-        event. preventDefault()
+    const onSubmit = async (data: {name:string ; description: string ; price:number ; category:number ; situation:number}) => {
         //iniciar carregamento
         setloading(true) 
         //limpar erro se tiver
@@ -55,13 +63,7 @@ export default function Product () {
         //fazer requisição para a API
         try {
         //requisição
-            const response = await instance.post ("/product", {
-                name: nameProduct,
-                description: description,
-                price: price,
-                category: category,
-                situation: situation
-            })
+            const response = await instance.post ("/product", data)
             //exibir mensafgem de sucesso 
             setSuccess(response.data.menssage || "Produto cadastrado com sucesso!")
             //limpar o campo do formulario
@@ -97,11 +99,11 @@ export default function Product () {
                     <SideBar/>
 
                     {/* mostrar carregando */}
-                    {loading && <p>carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* mostrar menssagem de erro se ouver */}
-                    {error && <p>{error}</p> }
+                    <AlertMessage type="error" message={error}/>
                     {/* mostrar menssagem de sucesso se ouver */}
-                    {success && <p>{success}</p>}
+                    <AlertMessage type="success" message={success}/>
 
                     {/* <!-- conteudo principal --> */}
                     <main className="main-content">
@@ -134,7 +136,7 @@ export default function Product () {
                                 </div>
                             </div>
 
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit(onSubmit)}>
                                 <div className="mb-4">
                                     <label htmlFor="nameProduct" className="form-label">Nome do Produto: </label>
                                     <input 
@@ -142,9 +144,11 @@ export default function Product () {
                                         id = "nameProduct"
                                         value={nameProduct}
                                         placeholder="Nome do Produto"
-                                        onChange={(e) => setNameProduct(e.target.value)}
+                                        {...register('name')}
                                         className="form-input"
                                     />
+                                    {/* exibir erros de validação de campo  */}
+                                    {errors.name && <AlertMessage type="error" message={errors.name.message ?? null}/>}
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="description" className="form-label">Descrição do produto: </label>
@@ -153,9 +157,11 @@ export default function Product () {
                                         id="description"
                                         value={description}
                                         placeholder="descrição do produto" 
-                                        onChange={(e) => setDescription(e.target.value)}
+                                        {...register('description')}
                                         className="form-input"
                                     />
+                                    {/* exibir erros de validação de campo  */}
+                                    {errors.description && <AlertMessage type="error" message={errors.description.message ?? null}/>}
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="price" className="form-label">preço do produto: </label>
@@ -166,9 +172,11 @@ export default function Product () {
                                         placeholder="Preço do Produto"
                                         min={0.00}
                                         step={0.01}
-                                        onChange={(e) => setPrice(e.target.value)}
+                                        {...register('price')}
                                         className="form-input"
                                     />
+                                    {/* exibir erros de validação de campo  */}
+                                    {errors.price && <AlertMessage type="error" message={errors.price.message ?? null}/>}
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="situation" className="form-label">Situação do Produto: </label>
@@ -177,9 +185,11 @@ export default function Product () {
                                         id="situation"
                                         value={situation}
                                         placeholder="situação do produto"
-                                        onChange={(e) => setSituation(e.target.value)}
+                                        {...register('situation')}
                                         className="form-input" 
                                     />
+                                    {/* exibir erros de validação de campo  */}
+                                    {errors.situation && <AlertMessage type="error" message={errors.situation.message ?? null}/>}
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="category" className="form-label">Categoria do Produto: </label>
@@ -188,9 +198,11 @@ export default function Product () {
                                         id="category"
                                         value={category}
                                         placeholder="Categoria do Produto"
-                                        onChange={(e) => setCategory(e.target.value)}
+                                        {...register('category')}
                                         className="form-input"
                                     />
+                                    {/* exibir erros de validação de campo  */}
+                                    {errors.category && <AlertMessage type="error" message={errors.category.message ?? null}/>}
                                 </div>
                                 <button type="submit" disabled = {loading} className="btn-success">
                                         {loading ? "Cadastrando...": "CADASTRAR"}

@@ -19,6 +19,10 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import SideBar from "@/app/components/SideBar";
 //importar o componente nav bar
 import NavBar from "@/app/components/NavBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 //definir tipos para a resposta da API (interface)
 interface Situation {
@@ -89,11 +93,11 @@ export default function SituationList(){
                     <SideBar/>
                            
                     {/*exibir o carregando*/}
-                    {loading && <p>Carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/*exibe erro, se houver*/}
-                    {error && <p>{error}</p>}
+                    <AlertMessage type="error" message={error}/>
                     {/* exibir mensagem de sucesso */}
-                    {success && <p style={{color:"#3CB648"}}>{success}</p>}
+                    <AlertMessage type="success" message={success}/>
 
                     {!loading && !error && (
                         // <!-- conteudo principal -->

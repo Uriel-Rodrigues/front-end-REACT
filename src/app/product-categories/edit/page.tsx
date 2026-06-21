@@ -10,7 +10,10 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import SideBar from "@/app/components/SideBar";
 //importar o componente nav bar
 import NavBar from "@/app/components/NavBar";
-
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 export default function Categories () {
     // capturar dados encaminhados atraves da URL
@@ -116,11 +119,11 @@ export default function Categories () {
                     <SideBar/>
             
                     {/* verificar carregameno */}
-                    {loading && <p>carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* exibir mensagem de erro caso tenha */}
-                    {error && <p>{error}</p>}
+                    <AlertMessage type="error" message={error}/>
                     {/* exibir menssagem de sucesso caso tenha */}
-                    {success && <p>{success}</p>}
+                    <AlertMessage type="success" message={success}/>
 
                     {/* <!-- conteudo principal --> */}
                     <main className="main-content">

@@ -10,6 +10,10 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import SideBar from "@/app/components/SideBar";
 //importar o componente nav bar
 import NavBar from "@/app/components/NavBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 export default function Product() {
     //capturar id pela url
@@ -30,6 +34,7 @@ export default function Product() {
     const [error , setError] = useState <string | null> (null) 
     //estado para controle de sucesso 
     const [success, setSuccess] = useState <string | null> (null)
+
 
     //função para capturar os dados ja existente dentro da API
     const fetchProduct = async () =>{
@@ -127,11 +132,11 @@ export default function Product() {
                     <SideBar/>
                     
                     {/* mostar carregando */}
-                    {loading && <p>carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* mostrar erro caso tenha */}
-                    {error && <p>{error}</p>}
+                    <AlertMessage type="error" message={error}/>
                     {/* mostrar sucesso caso tenha */}
-                    {success && <p>{success}</p>}
+                    <AlertMessage type="success" message={success}/>
                     
                     {/* mostrar formulario */}
                     {!loading && !error && (

@@ -13,6 +13,10 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import NavBar from "@/app/components/NavBar";
 //importa o componente para a SidBar
 import SideBar from "@/app/components/SideBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 
 interface Categories {
@@ -88,10 +92,11 @@ const categoriesDetails = ()=>{
                     <SideBar/>
 
                     {/* exibir o carregando */}
-                    {loading && <p>carregando...</p>}
-                    {/* exibnir erro se ouver */}
-                    {error && <p style={{color:"#AB080B"}}>{error}</p>}
-
+                    {loading && <LoadingSpinner/>}
+                    {/* exibir erro se ouver */}
+                    <AlertMessage type="error" message={error}/>
+                    {/* exibir sucesso se ouver */}
+                    <AlertMessage type="success" message={success}/>
                     {/* imprimir detalhes do registro */}
                     {categories && !loading && !error &&(
                         // <!-- conteudo principal -->

@@ -15,7 +15,10 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import NavBar from "@/app/components/NavBar"
 //imprtar componente de SidBar
 import SideBar from "@/app/components/SideBar"
-import { mainModule } from "process"
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 interface Situation {
     id: number
@@ -98,11 +101,11 @@ const situationDetails = () => {
 
 
                     {/* exibir o carregando */}
-                    {loading && <p>carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* exibnir erro se ouver */}
-                    {error && <p style={{color:"#AB080B"}}>{error}</p> }
+                    <AlertMessage type="error" message={error}/>
                     {/* exibir mensagem de sucesso se ouver */}
-                    {success && <p style={{color:"#3CB648"}}>{success}</p>}
+                    <AlertMessage type="success" message={success}/>
                     {/* imprimir os detalhes do registro */}
                     {situation && !loading && !error && (
 

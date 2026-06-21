@@ -13,6 +13,10 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import NavBar from "@/app/components/NavBar";
 //importa o componente para a SidBar
 import SideBar from "@/app/components/SideBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 
 
@@ -98,11 +102,11 @@ export default function productList(){
                    <SideBar/>
 
                     {/* exibir carregando */}
-                    {loading && <p>Carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* exibir mensage de erro se tiver */}
-                    {error && <p>{error}</p>}
+                    <AlertMessage type="error" message={error}/>
                     {/* exibir mensagem de sucesso se tiver  */}
-                    {success && <p style={{color:"#3CB648" }}>{success}</p>}
+                    <AlertMessage type="success" message={success}/>
 
                     {/* exibir o conteudo da tabela caso nao tenha erro e nao esteja carregando  */}
                     {!loading && !error && (
@@ -160,7 +164,7 @@ export default function productList(){
                                                             setError={setError}
                                                             setSuccess={setSuccess}
                                                         />   
-                                                        </td>
+                                                    </td>
                                                 </tr>
                                             ))}
                                         </tbody>

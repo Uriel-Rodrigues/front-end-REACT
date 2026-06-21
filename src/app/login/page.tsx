@@ -45,7 +45,7 @@ export default function Login (){
         setSuccess(null)
 
         try{
-            //fazer requisição para api enviar dados os dados
+            //fazer requisição para api enviar todos os dados
             const response = await instance.post("/", data)
             
             // capturar o token e armazenar em sessionStorage

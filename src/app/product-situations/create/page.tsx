@@ -16,10 +16,14 @@ import ProtectedRoute from "@/app/components/ProtectedRoute";
 import SideBar from "@/app/components/SideBar";
 //importar o componente nav bar
 import NavBar from "@/app/components/NavBar";
+// importar animação spinner para carregando
+import LoadingSpinner from "../../components/LoadingSpinner";
+//importar o componente para apresentar os alertas
+import AlertMessage from "../../components/AlertMessage";
 
 const schema = yup.object().shape({
-    name: yup.string().required("o nome da situação do produto é obrigatoria")
-    .min(3, "o campo deve ter pelo menos 3 caracteres")
+    name: yup.string().required("o nome da situação do produto é obrigatoria!")
+    .min(3, "o campo deve ter pelo menos 3 caracteres!")
 })
 
 export default function Situation () {
@@ -91,11 +95,11 @@ export default function Situation () {
                     <SideBar/>
 
                     {/* exivir carregando  */}
-                    {loading && <p>Carregando...</p>}
+                    {loading && <LoadingSpinner/>}
                     {/* exibir erro se ouver */}
-                    {error && <p style={{color: "#AB080B"}}>{error}</p>}
+                    <AlertMessage type="error" message={error}/>
                     {/* exibir sucesso se ouver  */}
-                    {success && <p style= {{color: "#3CB648"}}>{success}</p>}
+                    <AlertMessage type="success" message={success}/>
                     
                     {/* <!-- conteudo principal --> */}
                     <main className="main-content">
@@ -140,7 +144,8 @@ export default function Situation () {
                                         {...register('name')}
                                         className="form-input"
                                     />
-                                    {errors.name && <p style={{color:"#AB080B"}}>{errors.name.message}</p>}
+                                    {/* exibir erros de validação de campo  */}
+                                    {errors.name && <AlertMessage type="error" message={errors.name.message ?? null}/>}
                                 </div>
 
                                 <button type="submit" disabled = {loading} className="btn-success">
