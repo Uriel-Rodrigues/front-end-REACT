@@ -3,7 +3,7 @@ import Menu from "@/app/components/Menu";
 import instance from "@/services/api";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 //importar componente para tornar rota protegida
 import ProtectedRoute from "@/app/components/ProtectedRoute";
 //importar o componente sid bar
@@ -17,7 +17,7 @@ import AlertMessage from "../../components/AlertMessage";
 import Layout from "@/app/components/Layout";
 
 
-export default function situation(){
+function ProductSituation(){
     //capturar o id encaminhado pela URL
     const id = Number(useSearchParams().get("id"))
     //estado para guarda situação
@@ -185,4 +185,10 @@ export default function situation(){
             </main>
         </Layout>
     )
+}
+
+export default function ProductSituationPage() {
+    <Suspense fallback = {<LoadingSpinner />}>
+        <ProductSituation />
+    </Suspense>
 }

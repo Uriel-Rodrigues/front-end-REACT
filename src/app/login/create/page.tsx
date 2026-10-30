@@ -27,7 +27,8 @@ const schema = yup.object().shape({
     name: yup.string().required("o nome do usuario é obrigatorio").min(2,"o campo precisa de no minimo 3 caracteres"),
     email: yup.string().email().required("o campo de email do usuario é obrigatorio"),
     password: yup.string().required("o campo de senha é obrigatorio!"),
-    situation: yup.string().required("o campo de situação do usuario é necessario")
+    situation: yup.string()
+    // .required("o campo de situação do usuario é necessario")
 })
 
 //estados para controle e armazenamento de dados 
@@ -74,7 +75,7 @@ export default function UserCreate () {
         }
         catch (error: any) {
             //verificar se existe erro de requisição
-            if(error.response & error.response.data && error.response.data.menssage) {
+            if(error.response && error.response.data && error.response.data.menssage) {
                 //retornar menssagem de erro em caso de ser um array
                 if(Array.isArray(error.response.data.menssage)){
                     setError(error.response.data.menssage.join(" - "))

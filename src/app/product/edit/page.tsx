@@ -2,7 +2,7 @@
 import instance from "@/services/api";
 import Menu from "@/app/components/Menu";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import {useSearchParams } from "next/navigation"
 //importar componente para tornar rota protegida
 import ProtectedRoute from "@/app/components/ProtectedRoute";
@@ -16,7 +16,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import AlertMessage from "../../components/AlertMessage";
 import Layout from "@/app/components/Layout";
 
-export default function Product() {
+function Product() {
     //capturar id pela url
     const id = Number(useSearchParams().get("id"))
     //estado para guardar o nome do produdo
@@ -250,4 +250,10 @@ export default function Product() {
         </Layout>
     )
 
+}
+
+export default function ProductPage() {
+    <Suspense fallback = {<LoadingSpinner />}>
+        <Product />
+    </Suspense>
 }

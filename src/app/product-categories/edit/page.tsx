@@ -3,7 +3,7 @@ import Menu from "@/app/components/Menu"
 import instance from "@/services/api"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState} from "react"
 //importar componente para tornar rota protegida
 import ProtectedRoute from "@/app/components/ProtectedRoute";
 //importar o componente sid bar
@@ -16,7 +16,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import AlertMessage from "../../components/AlertMessage";
 import Layout from "@/app/components/Layout"
 
-export default function Categories () {
+function Categories () {
     // capturar dados encaminhados atraves da URL
     const id = Number(useSearchParams().get("id"))
     // armazenar dados da categoria
@@ -184,4 +184,10 @@ export default function Categories () {
         </Layout>
 
     )
+}
+
+export default function CategoriesPage() {
+    <Suspense fallback = {<LoadingSpinner />}>
+        <Categories />
+    </Suspense>
 }

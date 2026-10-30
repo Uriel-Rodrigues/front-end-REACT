@@ -1,7 +1,7 @@
 'use client'
 import instance from "@/services/api";
 import Menu from "@/app/components/Menu";
-import {useEffect ,useState } from "react";
+import {Suspense, useEffect ,useState } from "react";
 import { useSearchParams } from "next/navigation";
 import * as yup from "yup"
 import Link from "next/link";
@@ -24,7 +24,7 @@ const schema = yup.object().shape({
     situation: yup.number().required("o campo de situação do usuatio é obrigatorio ")
 })
 
-export default function User () {
+function User () {
     //estado para capturar o id que vem pela URL
     const id = Number(useSearchParams().get("id"))
     //estado para guardar o nome do usuario 
@@ -215,4 +215,10 @@ export default function User () {
             )}
         </Layout>
     )
+}
+
+export default function UserPage() {
+    <Suspense fallback = {<LoadingSpinner />}>
+        <User />
+    </Suspense>
 }

@@ -1,5 +1,5 @@
 'use client'
-import React, {useEffect, useState} from "react";
+import React, {Suspense, useEffect, useState} from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, useFormContext } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -17,7 +17,7 @@ const schema = yup.object().shape({
     password:yup.string().required("o campo senha é obrigatorio!")
 })
 
-export default function updatePassword () {
+function UpdatePassword () {
     //instanciar o objeto router
     const router = useRouter()
     //instanciar o objeto para capturar os parametros da URL
@@ -175,4 +175,10 @@ export default function updatePassword () {
         </div>
     )
    
+}
+
+export default function UpdatePasswordPage() {
+    <Suspense fallback = {<LoadingSpinner />}>
+        <UpdatePassword />
+    </Suspense>
 }

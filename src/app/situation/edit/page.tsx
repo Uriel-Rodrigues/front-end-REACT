@@ -4,7 +4,7 @@
 import Menu from "@/app/components/Menu"
 import instance from "@/services/api"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 //importar componente para tornar rota protegida (precisa estar logado)
 import ProtectedRoute from "@/app/components/ProtectedRoute";
@@ -19,7 +19,7 @@ import AlertMessage from "../../components/AlertMessage";
 import Layout from "@/app/components/Layout"
 
 
-export default function Situation() {
+function Situation() {
     //capturar parametro ID encaminhado na URL
     const id = Number(useSearchParams().get("id"))    
     //estado prar armazenar situação
@@ -188,3 +188,9 @@ export default function Situation() {
         </Layout>
     )
 }  
+
+export default function SituationPage() {
+    <Suspense fallback = {<LoadingSpinner />}>
+        <Situation />
+    </Suspense>
+}
