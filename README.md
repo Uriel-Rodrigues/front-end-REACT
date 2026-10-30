@@ -44,6 +44,10 @@ instalar a dependenia yup para validar o fomulario. o react-hook-form para geren
 npm install @hookform/resolvers yup react-hook-form
 ```
 
+instalar a biblioteca para gerar graficos
+```
+npm install recharts
+```
 ## como enviar e baixar os arquivos do git rub
 
 Baixar os arquivos do git

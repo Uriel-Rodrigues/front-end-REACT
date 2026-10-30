@@ -20,6 +20,8 @@ import NavBar from "@/app/components/NavBar";
 import LoadingSpinner from "../../components/LoadingSpinner";
 //importar o componente para apresentar os alertas
 import AlertMessage from "../../components/AlertMessage";
+import Layout from "@/app/components/Layout";
+
 
 const schema = yup.object().shape({
     name: yup.string().required("o nome da situação do produto é obrigatoria!")
@@ -88,75 +90,67 @@ export default function Situation () {
     } 
 
     return(
-        <ProtectedRoute>
-            <div className="bg-dashboard">
-                <NavBar/>
-                <div className="flex">
-                    <SideBar/>
-
-                    {/* exivir carregando  */}
-                    {loading && <LoadingSpinner/>}
-                    {/* exibir erro se ouver */}
-                    <AlertMessage type="error" message={error}/>
-                    {/* exibir sucesso se ouver  */}
-                    <AlertMessage type="success" message={success}/>
-                    
-                    {/* <!-- conteudo principal --> */}
-                    <main className="main-content">
-                        {/* <!-- titulo a trilha de navegação --> */}
-                        <div className="content-wrapper">
-                            <div className="content-header">
-                                <h2 className="content-title">Produto-Situação</h2>
-                                <nav className="breadcrumb">
-                                    <a href="/deshboard" className="breadcrumb-link">Dashboard</a>
-                                    <span>/</span>
-                                    <a href={`/product-situations/list`} className="breadcrumb-link">Produto-Situação</a>
-                                    <span>/</span>
-                                    <span>Cadastrar</span>
-                                </nav>
-                            </div>
-                        </div>
-
-                        <div className="content-box">
-                            <div className="content-box-header">
-                                <h3 className="content-box-title">Cadastrar Situação-Produto</h3>
-                                <div className="content-box-btn">
-                                    <a href={`/product-situations/list`} className="btn-info aling-icon-btn">
-                                        {/* <!-- svg list-bullet (Heroicons) --> */}
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
-
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                                        </svg>
-                                        <span>Listar</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <div className="mb-4">
-                                    <label htmlFor="nameSituation" className="form-label">Nome da Situação: </label>
-                                    <input
-                                        //value={nameSituation}
-                                        type="text"
-                                        id="nameSituation"
-                                        placeholder="Nome da Situação"
-                                        //onChange={(e) => setNameSituation(e.target.value)} 
-                                        {...register('name')}
-                                        className="form-input"
-                                    />
-                                    {/* exibir erros de validação de campo  */}
-                                    {errors.name && <AlertMessage type="error" message={errors.name.message ?? null}/>}
-                                </div>
-
-                                <button type="submit" disabled = {loading} className="btn-success">
-                                    {loading ? "Cadastrando...": "Cadastrar"}
-                                </button>
-                            </form>
-                        </div>
-                    </main>
+        <Layout>
+            {/* exivir carregando  */}
+            {loading && <LoadingSpinner/>}
+            {/* exibir erro se ouver */}
+            <AlertMessage type="error" message={error}/>
+            {/* exibir sucesso se ouver  */}
+            <AlertMessage type="success" message={success}/>
+            
+            {/* <!-- conteudo principal --> */}
+            <main className="main-content">
+                {/* <!-- titulo a trilha de navegação --> */}
+                <div className="content-wrapper">
+                    <div className="content-header">
+                        <h2 className="content-title">Produto-Situação</h2>
+                        <nav className="breadcrumb">
+                            <a href="/deshboard" className="breadcrumb-link">Dashboard</a>
+                            <span>/</span>
+                            <a href={`/product-situations/list`} className="breadcrumb-link">Produto-Situação</a>
+                            <span>/</span>
+                            <span>Cadastrar</span>
+                        </nav>
+                    </div>
                 </div>
-            </div>
 
-        </ProtectedRoute>
+                <div className="content-box">
+                    <div className="content-box-header">
+                        <h3 className="content-box-title">Cadastrar Situação-Produto</h3>
+                        <div className="content-box-btn">
+                            <a href={`/product-situations/list`} className="btn-info aling-icon-btn">
+                                {/* <!-- svg list-bullet (Heroicons) --> */}
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                </svg>
+                                <span>Listar</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className="mb-4">
+                            <label htmlFor="nameSituation" className="form-label">Nome da Situação: </label>
+                            <input
+                                //value={nameSituation}
+                                type="text"
+                                id="nameSituation"
+                                placeholder="Nome da Situação"
+                                //onChange={(e) => setNameSituation(e.target.value)} 
+                                {...register('name')}
+                                className="form-input"
+                            />
+                            {/* exibir erros de validação de campo  */}
+                            {errors.name && <AlertMessage type="error" message={errors.name.message ?? null}/>}
+                        </div>
+
+                        <button type="submit" disabled = {loading} className="btn-success">
+                            {loading ? "Cadastrando...": "Cadastrar"}
+                        </button>
+                    </form>
+                </div>
+            </main>
+        </Layout>
     )
 }

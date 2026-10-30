@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 //importar hook que permit capturar a URL da pagina do usuario 
 import {usePathname } from "next/navigation"
 
-const SideBar = () => {
+const SideBar = ({isOpen, setIsOpen}: {isOpen: boolean; setIsOpen: (isOpen: boolean) => void}) => {
     //istanciar o objeto router 
     const router= useRouter()
     //istanciar o objeto pasthName capturar URL
@@ -25,9 +25,9 @@ const SideBar = () => {
     return (
         <div className="flex">
             {/* <!-- sidBar --> */}
-            <aside id="sidebar" className="sidebar">
+            <aside id="sidebar" className={`sidebar sm:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                 <div className="sidebar-container">
-                    <button id="closeSidebar" className="sidebar-close-button">
+                    <button id="closeSidebar" className="sidebar-close-button" onClick={() => setIsOpen(false)}>
                         <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                 d="M6 18L18 6M6 6l12 12" />

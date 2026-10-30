@@ -4,7 +4,7 @@ import axios, { AxiosInstance } from "axios";
 //Definir o tipo para a instancia do Axios
 //criar uma instancia persnalizada do axios com configuração padrão
 const instance: AxiosInstance = axios.create({
-    baseURL: "http://localhost:8080",// definir a URL base para todas as requisições 
+    baseURL: "https://api-nodejs-u6wk.onrender.com",// definir a URL base para todas as requisições 
     headers:{
         "Content-Type": "application/json" // definir o cabeçalho padrão para envio de dados no formato JSON
     }

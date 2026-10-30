@@ -18,6 +18,7 @@ import NavBar from "@/app/components/NavBar";
 import LoadingSpinner from "../../components/LoadingSpinner";
 //importar o componente para apresentar os alertas
 import AlertMessage from "../../components/AlertMessage";
+import Layout from "@/app/components/Layout";
 
 //schema de alidação com yup
 const schema = yup.object().shape({
@@ -92,126 +93,119 @@ export default function Product () {
     }
     
     return(
-        <ProtectedRoute>
-            <div className="bg-dashboard">
-                <NavBar/>
-                <div className="flex">
-                    <SideBar/>
+        <Layout>
+            {/* mostrar carregando */}
+            {loading && <LoadingSpinner/>}
+            {/* mostrar menssagem de erro se ouver */}
+            <AlertMessage type="error" message={error}/>
+            {/* mostrar menssagem de sucesso se ouver */}
+            <AlertMessage type="success" message={success}/>
 
-                    {/* mostrar carregando */}
-                    {loading && <LoadingSpinner/>}
-                    {/* mostrar menssagem de erro se ouver */}
-                    <AlertMessage type="error" message={error}/>
-                    {/* mostrar menssagem de sucesso se ouver */}
-                    <AlertMessage type="success" message={success}/>
-
-                    {/* <!-- conteudo principal --> */}
-                    <main className="main-content">
-                        {/* <!-- titulo a trilha de navegação --> */}
-                        <div className="content-wrapper">
-                            <div className="content-header">
-                                <h2 className="content-title">Produto</h2>
-                                <nav className="breadcrumb">
-                                    <a href="/deshboard" className="breadcrumb-link">Dashboard</a>
-                                    <span>/</span>
-                                    <a href={`/product/list`} className="breadcrumb-link">Produto</a>
-                                    <span>/</span>
-                                    <span>Cadastrar</span>
-                                </nav>
-                            </div>
-                        </div>
-
-                        <div className="content-box">
-                            <div className="content-box-header">
-                                <h3 className="content-box-title">Cadastrar Produto</h3>
-                                <div className="content-box-btn">
-                                    <a href={`/product/list`} className="btn-info aling-icon-btn">
-                                        {/* <!-- svg list-bullet (Heroicons) --> */}
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
-
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                                        </svg>
-                                        <span>Listar</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <div className="mb-4">
-                                    <label htmlFor="nameProduct" className="form-label">Nome do Produto: </label>
-                                    <input 
-                                        type="text"
-                                        id = "nameProduct"
-                                        value={nameProduct}
-                                        placeholder="Nome do Produto"
-                                        {...register('name')}
-                                        className="form-input"
-                                    />
-                                    {/* exibir erros de validação de campo  */}
-                                    {errors.name && <AlertMessage type="error" message={errors.name.message ?? null}/>}
-                                </div>
-                                <div className="mb-4">
-                                    <label htmlFor="description" className="form-label">Descrição do produto: </label>
-                                    <input 
-                                        type="text"
-                                        id="description"
-                                        value={description}
-                                        placeholder="descrição do produto" 
-                                        {...register('description')}
-                                        className="form-input"
-                                    />
-                                    {/* exibir erros de validação de campo  */}
-                                    {errors.description && <AlertMessage type="error" message={errors.description.message ?? null}/>}
-                                </div>
-                                <div className="mb-4">
-                                    <label htmlFor="price" className="form-label">preço do produto: </label>
-                                    <input 
-                                        type="number"
-                                        id="price"
-                                        value={price}
-                                        placeholder="Preço do Produto"
-                                        min={0.00}
-                                        step={0.01}
-                                        {...register('price')}
-                                        className="form-input"
-                                    />
-                                    {/* exibir erros de validação de campo  */}
-                                    {errors.price && <AlertMessage type="error" message={errors.price.message ?? null}/>}
-                                </div>
-                                <div className="mb-4">
-                                    <label htmlFor="situation" className="form-label">Situação do Produto: </label>
-                                    <input 
-                                        type="number"  
-                                        id="situation"
-                                        value={situation}
-                                        placeholder="situação do produto"
-                                        {...register('situation')}
-                                        className="form-input" 
-                                    />
-                                    {/* exibir erros de validação de campo  */}
-                                    {errors.situation && <AlertMessage type="error" message={errors.situation.message ?? null}/>}
-                                </div>
-                                <div className="mb-4">
-                                    <label htmlFor="category" className="form-label">Categoria do Produto: </label>
-                                    <input 
-                                        type="text" 
-                                        id="category"
-                                        value={category}
-                                        placeholder="Categoria do Produto"
-                                        {...register('category')}
-                                        className="form-input"
-                                    />
-                                    {/* exibir erros de validação de campo  */}
-                                    {errors.category && <AlertMessage type="error" message={errors.category.message ?? null}/>}
-                                </div>
-                                <button type="submit" disabled = {loading} className="btn-success">
-                                        {loading ? "Cadastrando...": "CADASTRAR"}
-                                </button>
-                            </form>
-                        </div>
-                    </main>
+            {/* <!-- conteudo principal --> */}
+            <main className="main-content">
+                {/* <!-- titulo a trilha de navegação --> */}
+                <div className="content-wrapper">
+                    <div className="content-header">
+                        <h2 className="content-title">Produto</h2>
+                        <nav className="breadcrumb">
+                            <a href="/deshboard" className="breadcrumb-link">Dashboard</a>
+                            <span>/</span>
+                            <a href={`/product/list`} className="breadcrumb-link">Produto</a>
+                            <span>/</span>
+                            <span>Cadastrar</span>
+                        </nav>
+                    </div>
                 </div>
-            </div>
-        </ProtectedRoute>
+
+                <div className="content-box">
+                    <div className="content-box-header">
+                        <h3 className="content-box-title">Cadastrar Produto</h3>
+                        <div className="content-box-btn">
+                            <a href={`/product/list`} className="btn-info aling-icon-btn">
+                                {/* <!-- svg list-bullet (Heroicons) --> */}
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                </svg>
+                                <span>Listar</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className="mb-4">
+                            <label htmlFor="nameProduct" className="form-label">Nome do Produto: </label>
+                            <input 
+                                type="text"
+                                id = "nameProduct"
+                                value={nameProduct}
+                                placeholder="Nome do Produto"
+                                {...register('name')}
+                                className="form-input"
+                            />
+                            {/* exibir erros de validação de campo  */}
+                            {errors.name && <AlertMessage type="error" message={errors.name.message ?? null}/>}
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="description" className="form-label">Descrição do produto: </label>
+                            <input 
+                                type="text"
+                                id="description"
+                                value={description}
+                                placeholder="descrição do produto" 
+                                {...register('description')}
+                                className="form-input"
+                            />
+                            {/* exibir erros de validação de campo  */}
+                            {errors.description && <AlertMessage type="error" message={errors.description.message ?? null}/>}
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="price" className="form-label">preço do produto: </label>
+                            <input 
+                                type="number"
+                                id="price"
+                                value={price}
+                                placeholder="Preço do Produto"
+                                min={0.00}
+                                step={0.01}
+                                {...register('price')}
+                                className="form-input"
+                            />
+                            {/* exibir erros de validação de campo  */}
+                            {errors.price && <AlertMessage type="error" message={errors.price.message ?? null}/>}
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="situation" className="form-label">Situação do Produto: </label>
+                            <input 
+                                type="number"  
+                                id="situation"
+                                value={situation}
+                                placeholder="situação do produto"
+                                {...register('situation')}
+                                className="form-input" 
+                            />
+                            {/* exibir erros de validação de campo  */}
+                            {errors.situation && <AlertMessage type="error" message={errors.situation.message ?? null}/>}
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="category" className="form-label">Categoria do Produto: </label>
+                            <input 
+                                type="text" 
+                                id="category"
+                                value={category}
+                                placeholder="Categoria do Produto"
+                                {...register('category')}
+                                className="form-input"
+                            />
+                            {/* exibir erros de validação de campo  */}
+                            {errors.category && <AlertMessage type="error" message={errors.category.message ?? null}/>}
+                        </div>
+                        <button type="submit" disabled = {loading} className="btn-success">
+                                {loading ? "Cadastrando...": "CADASTRAR"}
+                        </button>
+                    </form>
+                </div>
+            </main>
+        </Layout>
     )
 } 

@@ -16,6 +16,7 @@ import NavBar from "@/app/components/NavBar";
 import LoadingSpinner from "../../components/LoadingSpinner";
 //importar o componente para apresentar os alertas
 import AlertMessage from "../../components/AlertMessage";
+import Layout from "@/app/components/Layout";
 
 //montar schema de validação com yup
 const schema = yup.object().shape({
@@ -90,112 +91,106 @@ export default function UserCreate () {
     } 
 
     return (
-        <ProtectedRoute>
-            <div className="bg-dashboard">
-                <NavBar/>
-                <div className="flex">
-                    <SideBar/>
-                    {/* mostrar carregando  */}
-                    {loading && <LoadingSpinner/>}
-                    {/* mostrar erro caso tenha  */}
-                    <AlertMessage type="error" message={error}/>
-                    {/* mostrar sucesso caso ocorra */}
-                    <AlertMessage type="success" message={success}/>
+        <Layout>
+            {/* mostrar carregando  */}
+            {loading && <LoadingSpinner/>}
+            {/* mostrar erro caso tenha  */}
+            <AlertMessage type="error" message={error}/>
+            {/* mostrar sucesso caso ocorra */}
+            <AlertMessage type="success" message={success}/>
 
-                    {/* mostrar formulario de cadastro caso tudo ok */}
-                    {!loading && !error && (
+            {/* mostrar formulario de cadastro caso tudo ok */}
+            {!loading && !error && (
 
-                        // consteudo principal
-                        <main className="main-content">
-                            {/* <!-- titulo a trilha de navegação --> */}
-                            <div className="content-wrapper">
-                                <div className="content-header">
-                                    <h2 className="content-title">Usuarios</h2>
-                                    <nav className="breadcrumb">
-                                        <a href="/deshboard" className="breadcrumb-link">Dashboard</a>
-                                        <span>/</span>
-                                        <a href={`/user/list`} className="breadcrumb-link">Usuários</a>
-                                        <span>/</span>
-                                        <span>Cadastrar</span>
-                                    </nav>
-                                </div>
+                // consteudo principal
+                <main className="main-content">
+                    {/* <!-- titulo a trilha de navegação --> */}
+                    <div className="content-wrapper">
+                        <div className="content-header">
+                            <h2 className="content-title">Usuarios</h2>
+                            <nav className="breadcrumb">
+                                <a href="/deshboard" className="breadcrumb-link">Dashboard</a>
+                                <span>/</span>
+                                <a href={`/user/list`} className="breadcrumb-link">Usuários</a>
+                                <span>/</span>
+                                <span>Cadastrar</span>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div className="content-box">
+                        <div className="content-box-header">
+                            <h3 className="content-box-title">Cadastrar Usuários</h3>
+                            <div className="content-box-btn">
+                                <a href={`/user/list`} className="btn-info aling-icon-btn">
+                                    {/* <!-- svg list-bullet (Heroicons) --> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                    </svg>
+                                    <span>Listar</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <form onSubmit={handleSubmit}>
+                            
+                            <div className="mb-4">
+                                <label htmlFor="userName" className="form-label">Nome do Usuario: </label>
+                                <input 
+                                    id="userName"
+                                    type="text"
+                                    value={name}
+                                    placeholder="nome do usuario"
+                                    onChange={(e) => setName(e.target.value)}
+                                    className="form-input"
+                                />
+                            </div> 
+
+                            <div className="mb-4">
+                                <label htmlFor="userEmail" className="form-label">Email do usuario: </label>
+                                <input 
+                                    id="userEmail"
+                                    type="email" 
+                                    value={email}
+                                    placeholder="email do usuario" 
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="form-input" 
+                                /> 
                             </div>
 
-                            <div className="content-box">
-                                <div className="content-box-header">
-                                    <h3 className="content-box-title">Cadastrar Usuários</h3>
-                                    <div className="content-box-btn">
-                                        <a href={`/user/list`} className="btn-info aling-icon-btn">
-                                            {/* <!-- svg list-bullet (Heroicons) --> */}
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+                            <div className="mb-4">
+                                <label htmlFor="userPassword" className="form-label">Senha: </label>
+                                <input
+                                    id="userPassword" 
+                                    type="string" 
+                                    value={userPassword}
+                                    placeholder="senha"
+                                    onChange={(e) => setUserPassword(e.target.value)}
+                                    className="form-input"
 
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                                            </svg>
-                                            <span>Listar</span>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <form onSubmit={handleSubmit}>
-                                 
-                                    <div className="mb-4">
-                                        <label htmlFor="userName" className="form-label">Nome do Usuario: </label>
-                                        <input 
-                                            id="userName"
-                                            type="text"
-                                            value={name}
-                                            placeholder="nome do usuario"
-                                            onChange={(e) => setName(e.target.value)}
-                                            className="form-input"
-                                        />
-                                    </div> 
-
-                                    <div className="mb-4">
-                                        <label htmlFor="userEmail" className="form-label">Email do usuario: </label>
-                                        <input 
-                                            id="userEmail"
-                                            type="email" 
-                                            value={email}
-                                            placeholder="email do usuario" 
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            className="form-input" 
-                                        /> 
-                                    </div>
-
-                                    <div className="mb-4">
-                                        <label htmlFor="userPassword" className="form-label">Senha: </label>
-                                        <input
-                                            id="userPassword" 
-                                            type="string" 
-                                            value={userPassword}
-                                            placeholder="senha"
-                                            onChange={(e) => setUserPassword(e.target.value)}
-                                            className="form-input"
-
-                                        /> 
-                                    </div>
-
-                                    <div className="mb-4">
-                                        <label htmlFor="userSituation" className="form-label">Situação do Usuario: </label>
-                                        <input
-                                            id="userSituation" 
-                                            type="number"
-                                            value={situation}
-                                            placeholder="situação do cliente"
-                                            onChange={(e) => setSituation(e.target.value)}
-                                            className="form-input"
-                                        />
-                                    </div>
-
-                                    <button type="submit" disabled ={loading} className="btn-success">
-                                        {loading ? "Cadastrando..." : "Cadastrar" }
-                                    </button>      
-                                </form>
+                                /> 
                             </div>
-                        </main>
-                    )}
-                </div>
-            </div>
-        </ProtectedRoute>
+
+                            <div className="mb-4">
+                                <label htmlFor="userSituation" className="form-label">Situação do Usuario: </label>
+                                <input
+                                    id="userSituation" 
+                                    type="number"
+                                    value={situation}
+                                    placeholder="situação do cliente"
+                                    onChange={(e) => setSituation(e.target.value)}
+                                    className="form-input"
+                                />
+                            </div>
+
+                            <button type="submit" disabled ={loading} className="btn-success">
+                                {loading ? "Cadastrando..." : "Cadastrar" }
+                            </button>      
+                        </form>
+                    </div>
+                </main>
+            )}
+        </Layout>
     )
 }

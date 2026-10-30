@@ -17,6 +17,8 @@ import SideBar from "@/app/components/SideBar";
 import LoadingSpinner from "../../components/LoadingSpinner";
 //importar o componente para apresentar os alertas
 import AlertMessage from "../../components/AlertMessage";
+import Layout from "@/app/components/Layout";
+
 
 //definir tipos para a resposta da API
 interface Categories {
@@ -82,94 +84,84 @@ export default function ProductCategoriesList() {
     },[currentPage])//recarrega os dados sempre que a pagina muda
     
     return(
-        <ProtectedRoute>
-            <div className="bg-dashboard">
-                {/* <!-- Navbar --> */}
-                <NavBar/>
-                <div className="flex">
-                    {/* <!-- sidBar --> */}
-                    <SideBar/>
-                                    
-                    {/* exibir o carregando... */}
-                    {loading && <LoadingSpinner/>}
-                    {/* exibe erros se ouver */}
-                    <AlertMessage type="error" message={error}/>
-                    {/* exibe mensagem de sucesso */}
-                    <AlertMessage type="success" message={success}/>
+        <Layout>             
+            {/* exibir o carregando... */}
+            {loading && <LoadingSpinner/>}
+            {/* exibe erros se ouver */}
+            <AlertMessage type="error" message={error}/>
+            {/* exibe mensagem de sucesso */}
+            <AlertMessage type="success" message={success}/>
 
-                    {!loading && !error && (
-                        <main className="main-content">
-                            {/* <!-- titulo a trilha de navegação --> */}
-                            <div className="content-wrapper">
-                                <div className="content-header">
-                                    <h2 className="content-title">Produtos-Categorias</h2>
-                                    <nav className="breadcrumb">
-                                        <a href="/deshboard" className=" breadcrumb-link">Dashboard</a>
-                                        <span>/</span>
-                                        <span>Produtos-Categorias</span>
-                                    </nav>
-                                </div>
+            {!loading && !error && (
+                <main className="main-content">
+                    {/* <!-- titulo a trilha de navegação --> */}
+                    <div className="content-wrapper">
+                        <div className="content-header">
+                            <h2 className="content-title">Produtos-Categorias</h2>
+                            <nav className="breadcrumb">
+                                <a href="/deshboard" className=" breadcrumb-link">Dashboard</a>
+                                <span>/</span>
+                                <span>Produtos-Categorias</span>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div className="content-box">
+                        <div className="content-box-header">
+                            <h3 className="content-box-title">Produtos-Categorias</h3>
+                            <div className="content-box-btn">
+                                <a href={`/product-categories/create`} className="btn-success aling-icon-btn">
+                                    {/* <!-- svg user-plus (Heroicons) --> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                                    </svg>
+                                    <span>Cadastrar</span>
+                                </a>
                             </div>
+                        </div>
 
-                            <div className="content-box">
-                                <div className="content-box-header">
-                                    <h3 className="content-box-title">Produtos-Categorias</h3>
-                                    <div className="content-box-btn">
-                                        <a href={`/product-categories/create`} className="btn-success aling-icon-btn">
-                                            {/* <!-- svg user-plus (Heroicons) --> */}
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
-
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
-                                            </svg>
-                                            <span>Cadastrar</span>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                {/* <!-- Criação da tabela com Usuarios (ações) --> */}
-                                <div className="table-container">
-                                    <table className="table">
-                                        <thead>
-                                            <tr className="table-row-header">
-                                                <th className="table-header">ID</th> 
-                                                <th className="table-header">Nome Categoria</th>
-                                                <th className="table-header center">Ações</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {categories.map((categories) => (
-                                                <tr key={categories.id} className="table-row-body">
-                                                    <td className="table-body">{categories.id}</td> 
-                                                    <td className="table-body">{categories.name}</td>
-                                                    <td className="table-body table-actions">
-                                                        <Link href = {`/product-categories/${categories.id}`} className="btn-primary">Visualizar</Link> 
-                                                        <Link href={`/product-categories/edit?id=${categories.id}`} className="btn-warning hidden md:inline-block">Editar</Link>
-                                                    < DeleteButton
-                                                        id={String(categories.id)}
-                                                        route="product-categories"
-                                                        onSuccess={hendleSuccess}
-                                                        setError={setError}
-                                                        setSuccess={setSuccess}
-                                                    />
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                {/* paginação */}
-                                <Pagination
-                                    currentPage={currentPage}
-                                    lastPage={lastPage}
-                                    onPageChange={setCurrentPage}
-                                />
-                            </div>
-                        </main>
-                    )}
-                    
-                </div>
-            </div>    
-        </ProtectedRoute>
+                        {/* <!-- Criação da tabela com Usuarios (ações) --> */}
+                        <div className="table-container">
+                            <table className="table">
+                                <thead>
+                                    <tr className="table-row-header">
+                                        <th className="table-header">ID</th> 
+                                        <th className="table-header">Nome Categoria</th>
+                                        <th className="table-header center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {categories.map((categories) => (
+                                        <tr key={categories.id} className="table-row-body">
+                                            <td className="table-body">{categories.id}</td> 
+                                            <td className="table-body">{categories.name}</td>
+                                            <td className="table-body table-actions">
+                                                <Link href = {`/product-categories/${categories.id}`} className="btn-primary">Visualizar</Link> 
+                                                <Link href={`/product-categories/edit?id=${categories.id}`} className="btn-warning hidden md:inline-block">Editar</Link>
+                                            < DeleteButton
+                                                id={String(categories.id)}
+                                                route="product-categories"
+                                                onSuccess={hendleSuccess}
+                                                setError={setError}
+                                                setSuccess={setSuccess}
+                                            />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        {/* paginação */}
+                        <Pagination
+                            currentPage={currentPage}
+                            lastPage={lastPage}
+                            onPageChange={setCurrentPage}
+                        />
+                    </div>
+                </main>
+            )}
+        </Layout>
     )
 
 }

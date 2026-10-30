@@ -22,6 +22,7 @@ import NavBar from "@/app/components/NavBar";
 import LoadingSpinner from "../../components/LoadingSpinner";
 //importar o componente para apresentar os alertas
 import AlertMessage from "../../components/AlertMessage";
+import Layout from "@/app/components/Layout"
 
 
 //esquema de validação com yup
@@ -92,74 +93,67 @@ export default function Situation () {
     } 
 
     return (
-        <ProtectedRoute>
-            <div className="bg-dashboard">
-                <NavBar/>
-                <div className="flex">
-                    <SideBar/>
-
-                    {/* exibir carregando */}
-                    {loading && <LoadingSpinner/>}
-                    {/* exibir error se houver */}
-                    <AlertMessage type="error" message={error}/>
-                    {/* exibir mensagem de sucesso */}
-                    <AlertMessage type="success" message={success}/>
-                    
-                    {/* <!-- conteudo principal --> */}
-                    <main className="main-content">
-                        {/* <!-- titulo a trilha de navegação --> */}
-                        <div className="content-wrapper">
-                            <div className="content-header">
-                                <h2 className="content-title">Situações</h2>
-                                <nav className="breadcrumb">
-                                    <a href="/deshboard" className="breadcrumb-link">Dashboard</a>
-                                    <span>/</span>
-                                    <a href={`/situation/list`} className="breadcrumb-link">Situação</a>
-                                    <span>/</span>
-                                    <span>Cadastrar</span>
-                                </nav>
-                            </div>
-                        </div>
-
-                        {/* inicio do formulario */}
-                        <div className="content-box">
-                            <div className="content-box-header">
-                                <h3 className="content-box-title">Cadastrar Situação</h3>
-                                <div className="content-box-btn">
-                                    <a href={`/situation/list`} className="btn-info aling-icon-btn">
-
-                                        {/* <!-- svg list-bullet (Heroicons) --> */}
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
-
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                                        </svg>
-                                        <span>Listar</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <form onSubmit={handleSubmit(onsubmit)}>
-                                <div className="mb-4">
-                                    <label htmlFor="nomeSituation" className="form-label">Nome da Situação: </label>
-                                    <input 
-                                        type="text" 
-                                        id ="nomeSituation"
-                                        placeholder="Nome da Situação"
-                                        {...register('nameSituation')}
-                                        className="form-input"   
-                                    />
-                                    {/* exibe o erro de validação do campo */}
-                                    {errors.nameSituation && <AlertMessage type="error" message={errors.nameSituation.message ?? null}/>}
-                                </div>
-
-                                <button type="submit" disabled = {loading} className="btn-success">
-                                    {loading ? "Enviado...":"Cadastrar"}
-                                </button>
-                            </form>
-                        </div>
-                    </main>
+        <Layout>
+            {/* exibir carregando */}
+            {loading && <LoadingSpinner/>}
+            {/* exibir error se houver */}
+            <AlertMessage type="error" message={error}/>
+            {/* exibir mensagem de sucesso */}
+            <AlertMessage type="success" message={success}/>
+            
+            {/* <!-- conteudo principal --> */}
+            <main className="main-content">
+                {/* <!-- titulo a trilha de navegação --> */}
+                <div className="content-wrapper">
+                    <div className="content-header">
+                        <h2 className="content-title">Situações</h2>
+                        <nav className="breadcrumb">
+                            <a href="/deshboard" className="breadcrumb-link">Dashboard</a>
+                            <span>/</span>
+                            <a href={`/situation/list`} className="breadcrumb-link">Situação</a>
+                            <span>/</span>
+                            <span>Cadastrar</span>
+                        </nav>
+                    </div>
                 </div>
-            </div>
-        </ProtectedRoute>
+
+                {/* inicio do formulario */}
+                <div className="content-box">
+                    <div className="content-box-header">
+                        <h3 className="content-box-title">Cadastrar Situação</h3>
+                        <div className="content-box-btn">
+                            <a href={`/situation/list`} className="btn-info aling-icon-btn">
+
+                                {/* <!-- svg list-bullet (Heroicons) --> */}
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                </svg>
+                                <span>Listar</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <form onSubmit={handleSubmit(onsubmit)}>
+                        <div className="mb-4">
+                            <label htmlFor="nomeSituation" className="form-label">Nome da Situação: </label>
+                            <input 
+                                type="text" 
+                                id ="nomeSituation"
+                                placeholder="Nome da Situação"
+                                {...register('nameSituation')}
+                                className="form-input"   
+                            />
+                            {/* exibe o erro de validação do campo */}
+                            {errors.nameSituation && <AlertMessage type="error" message={errors.nameSituation.message ?? null}/>}
+                        </div>
+
+                        <button type="submit" disabled = {loading} className="btn-success">
+                            {loading ? "Enviado...":"Cadastrar"}
+                        </button>
+                    </form>
+                </div>
+            </main>
+        </Layout>
     )
 }

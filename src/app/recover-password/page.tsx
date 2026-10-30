@@ -100,7 +100,7 @@ export default function RecoverPassword () {
                 {/* div com formulario */}
                 <div>
                     <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
-                        <div className="form-group-login ">
+                        <div className="form-group-login">
                             <label htmlFor="email" className="form-label-login">E-mail: </label>
                             <input
                                 id="email" 

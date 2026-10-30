@@ -15,6 +15,10 @@ export default function DeleteButton({id, route, onSuccess, setError, setSuccess
     const [loading, setLoading] = useState <boolean> (false)
     
     const handleDelete = async () => {
+        
+        const confirmDelete = window.confirm("Tem certeza que deseja excluir este registro?")
+        if(!confirmDelete) return
+
         // evita multiplos cliques
         if(loading) {
             return
